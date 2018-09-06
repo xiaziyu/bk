@@ -1,0 +1,16 @@
+*.log*
+.cache
+.DS_Store
+.idea
+.vscode
+packages/**/lib
+dist/
+lib/
+lib/*
+!lib/index.js
+!lib/style.css
+node_modules
+example/dist
+/docs/dist
+test/
+docs/
