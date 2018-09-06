@@ -1,0 +1,61 @@
+{
+  "name": "bk",
+  "version": "1.0.0",
+  "description": "bk",
+  "author": "bk",
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "vant": "^1.2.0",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.1",
+    "@vue/cli-plugin-eslint": "^3.0.1",
+    "@vue/cli-service": "^3.0.1",
+    "babel-plugin-import": "^1.8.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "vue-template-compiler": "^2.5.17"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {
+      "indent": ["error", 2, { "SwitchCase": 1 }],
+      "quotes": ["error", "single"],
+      "no-console": 0,
+      "no-empty": 2,
+      "no-eq-null": 2,
+      "no-new": 0,
+      "no-fallthrough": 0,
+      "no-unreachable": 0,
+      "semi": [2, "never"],
+      "no-mixed-spaces-and-tabs": [1, true],
+      "linebreak-style": [0, "windows"]
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "Android >= 4.0",
+    "iOS >= 7"
+  ]
+}
