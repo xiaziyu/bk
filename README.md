@@ -8,7 +8,7 @@ bkpb
 npm install
 
 # 本地开发
-# 通过 localhost:6666 访问页面
+# 通过 localhost:1375 访问页面
 npm run dev
 
 # 生产环境构建
