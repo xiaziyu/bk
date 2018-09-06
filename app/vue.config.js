@@ -1,6 +1,6 @@
 module.exports = {
   baseUrl: process.env.NODE_ENV === 'production' ? '/' : '/',
-  outputDir: '../dist',
+  outputDir: '../public',
   lintOnSave: true,
   productionSourceMap: false,
   devServer: {

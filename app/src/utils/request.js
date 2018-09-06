@@ -1,7 +1,5 @@
 import axios from 'axios'
-import Vue from 'vue'
-import { Toast } from 'vant'
-Vue.use(Toast)
+import { totFailD } from '@/utils/notice'
 import qs from 'qs'
 
 // 创建axios实例
@@ -36,13 +34,14 @@ service.interceptors.response.use(
       return response.data
     }else {
       const text = res['message']?res['message']+'['+res['code']+']':'返回异常，请稍候重试'
-      Toast(text)
+      totFailD(text)
       return Promise.reject('error')
     }
   },
   error => {
     console.log(error.response)// for debug
-    return Promise.reject(error)
+    totFailD('网络异常，请稍候重试')
+    return Promise.reject(error.response)
   }
 )
 export default service

@@ -1,87 +1,53 @@
 <template>
-  <div>
+  <div class="page page-join">
     <img class="page-top" :src="headerImg">
-    <van-row class="user-links">
-      <van-col span="6">
-        <van-icon name="pending-payment" />
-        待付款
-      </van-col>
-      <van-col span="6">
-        <van-icon name="pending-orders" />
-        待接单
-      </van-col>
-      <van-col span="6">
-        <van-icon name="pending-deliver" />
-        待发货
-      </van-col>
-      <van-col span="6">
-        <van-icon name="logistics" />
-        待发货
-      </van-col>
-    </van-row>
-
-    <van-cell-group class="user-group">
-      <van-cell icon="records" title="全部订单" is-link />
-    </van-cell-group>
-
-    <van-cell-group>
-      <van-cell icon="exchange" title="我的积分" is-link />
-      <van-cell icon="gold-coin" title="我的优惠券" is-link />
-      <van-cell icon="gift" title="我收到的礼物" is-link />
-    </van-cell-group>
+    <div class="item">
+      <itemTitle :title="'活动介绍'"></itemTitle>
+      <div class="inform" :class="show?'':'max'">
+        由别克品牌联合京东少东家打造的高校实践型校园社群，致力于打造一个集人才培养、知识分享、生活体验的社会实践平台，通过提供世界500强名企的培训活、活动、实习等机会，为在校大学生创造丰富的生活体验，挖掘并培养未来企业精英。
+      </div>
+      <i class="icon" :class="show?'icon-less':'icon-more'" @click="handleShow()"></i>
+    </div>
+    <div class="item">
+      <itemTitle :title="'报名信息填写'"></itemTitle>
+      <van-cell-group class="form">
+        <van-field v-model="userForm.user_name" :readonly="type==='1'" clearable label="姓名" placeholder="请输入姓名" maxlength="20"/>
+        <van-field v-model="userForm.iphone" :readonly="type==='1'" clearable label="手机号" placeholder="请输入手机号" maxlength="11"/>
+        <van-field v-model="userForm.emial" :disabled="type==='1'" clearable label="邮箱" placeholder="请输入常用邮箱" maxlength="50"/>
+      </van-cell-group>
+    </div>
+    <p class="join_jf" @click="handleWx()" v-if="type==='1'"><span>进入别克积分</span></p>
+    <van-button class="btn-join" @click="joinSub()" :disabled="type==='1'" type="default" :text="type==='1'?'已报名':type==='2'?'学生认证':'报名'"></van-button>
   </div>
 </template>
 
 <script>
-  import { Row, Col, Icon, Cell, CellGroup } from 'vant';
-  import { validateEmail } from '@/utils/validate'
+  import { Field, Cell, CellGroup, Button } from 'vant'
+  import itemTitle from '@/components/itemTitle'
+  import { validateEmail, valIph } from '@/utils/validate'
+  import { totText } from '@/utils/notice'
   import { getUserInfo } from '@/api/join'
   import headerImg from '@/assets/join/banner.png'
 
   export default {
     name: 'join',
     components: {
-      [Row.name]: Row,
-      [Col.name]: Col,
-      [Icon.name]: Icon,
+      [Field.name]: Field,
       [Cell.name]: Cell,
-      [CellGroup.name]: CellGroup
+      [CellGroup.name]: CellGroup,
+      [Button.name]: Button,
+      itemTitle
     },
     data() {
-      const email = (rule, value, callback) => {
-        if (!validateEmail(value)) {
-          callback(new Error('请输入正确的邮箱地址'))
-        } else {
-          callback()
-        }
-      }
-      const iphone = (rule, value, callback) => {
-        if (!validateEmail(value)) {
-          callback(new Error('请输入正确的手机号'))
-        } else {
-          callback()
-        }
-      }
       return {
         headerImg : headerImg+'?v=1',
+        type:'3',
         userForm: {
           user_name: '',
           iphone: '',
           emial: ''
         },
-        userRules: {
-          user_name: [{ required: true, message: '请输入用户名', trigger: 'blur'}],
-          emial: [
-            { required: true, message: '请输入邮箱地址', trigger: 'blur'},
-            //{ min: 4, max: 4, message: '验证码为4位数'},
-            { required: true, trigger: 'blur', validator: email }
-          ],
-          iphone: [
-            { required: true, message: '请输入验证码', trigger: 'blur'},
-            { required: true, trigger: 'blur', validator: iphone }
-          ]
-        },
-        loading: false
+        show: false
       }
     },
     created() {
@@ -91,42 +57,42 @@
       getDate() {
         const data ={name: '', emial: ''}
         getUserInfo(data).then(response => {
+          this.$toast.clear();
+          this.type = response.data.type||'3'
           this.userForm = {
             user_name: response.data.name||'',
-            iphone: response.data.name||'',
-            emial: response.data.emial||''
+            iphone: response.data.tel||'',
+            emial: response.data.email||''
           }
           console.log(response)
         }).catch(() => {
-
+          this.$toast.clear();
         })
+      },
+      handleShow(){
+        this.show = !this.show
+      },
+      joinSub(){
+        if(this.userForm.user_name===''){
+          totText('姓名不能为空')
+        }else if(this.userForm.iphone===''){
+          totText('手机号不能为空')
+        }else if(!valIph(this.userForm.iphone)){
+          totText('手机号格式不符，请检查输入')
+        }else if(this.userForm.emial===''){
+          totText('邮箱不能为空')
+        }else if(!validateEmail(this.userForm.emial)){
+          totText('邮箱格式不符，请检查输入')
+        }else {
+          this.formSub()
+        }
+      },
+      formSub(){
+        console.log('提交')
+      },
+      handleWx(){
+        console.log('进入别克积分')
       }
     }
   };
 </script>
-
-<style lang="less">
-  .user {
-    &-poster {
-      width: 7.5rem;
-      height: 4rem;
-      display: block;
-    }
-
-    &-group {
-      margin-bottom: .3rem;
-    }
-
-    &-links {
-      padding: 15px 0;
-      font-size: 12px;
-      text-align: center;
-      background-color: #fff;
-
-      .van-icon {
-        display: block;
-        font-size: 24px;
-      }
-    }
-  }
-</style>

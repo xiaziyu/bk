@@ -1,2 +1,14 @@
-.page-top{  width: 6.7rem;display: block;margin: 0.2rem auto; }
-.contaion{background: #fff;padding: 0 0.32rem;}
+.page-join {padding-bottom: 1rem;
+  .page-top{  width: 6.7rem;display: block;margin: 0.2rem auto; }
+  .join_jf{margin-top: 0.3rem;text-align: center;
+    span{text-decoration: underline;font-size: 0.3rem;line-height: 0.42rem;color: @textLabel;}
+  }
+}
+.item{background: #fff;padding: 0.1px 0.32rem;margin-bottom: 0.2rem;
+  .title{font-size: 0.3rem;color: @blue;margin: 0.3rem 0;border-left:0.08rem solid @blue;padding-left: 0.09rem; }
+  .inform{font-size: 0.28rem;line-height: 0.44rem;color: @titleTxt;text-align: justify;height: 0.44*5rem; transition: all 0.5s;
+    &.max{height: 0.44*3rem;.clamp(3);transition: all 0.5s;}
+  }
+  .icon{display: block;margin: 0.14rem auto 0.28rem auto;text-align: center;color: @textLabel;width: 0.32rem;height: 0.16rem;font-size:0.32rem;}
+}
+.btn-join{width: 100%;position: fixed;bottom:0;left: 0;background: @blue;color: #fff;height: 1rem;font-size: 0.34rem;line-height: 1rem;text-align: center;border-radius: 0;}
