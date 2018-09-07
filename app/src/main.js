@@ -3,6 +3,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import { router } from './router';
 import './style/index.less' // global css
+import store from './store'
+
 import { Loading, Toast } from 'vant';
 
 Vue.use(Loading)
@@ -15,6 +17,7 @@ const toast_all = Toast.loading({
 });
 new Vue({
   router,
+  store,
   el: '#app',
   render: h => h(App)
 });

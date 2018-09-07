@@ -23,6 +23,7 @@
 
 <script>
   import { Field, Cell, CellGroup, Button } from 'vant'
+  import { mapGetters } from 'vuex'
   import itemTitle from '@/components/itemTitle'
   import { validateEmail, valIph } from '@/utils/validate'
   import { totText } from '@/utils/notice'
@@ -32,6 +33,9 @@
   export default {
     name: 'join',
     components: {
+      ...mapGetters([
+        'code'
+      ]),
       [Field.name]: Field,
       [Cell.name]: Cell,
       [CellGroup.name]: CellGroup,
@@ -51,11 +55,12 @@
       }
     },
     created() {
+      console.log(this.$route.params)
       this.getDate()
     },
     methods: {
       getDate() {
-        const data ={name: '', emial: ''}
+        const data ={code: this.code, emial: ''}
         getUserInfo(data).then(response => {
           this.$toast.clear();
           this.type = response.data.type||'3'
