@@ -17,35 +17,40 @@
       </van-cell-group>
     </div>
     <p class="join_jf" @click="handleWx()" v-if="type==='1'"><span>进入别克积分</span></p>
-    <van-button class="btn-join" @click="joinSub()" :disabled="type==='1'" type="default" :text="type==='1'?'已报名':type==='2'?'学生认证':'报名'"></van-button>
+    <van-button class="btn-join" v-if="type==='1'" disabled>已报名</van-button>
+    <van-button class="btn-join" @click="authSub()" v-else-if="type==='2'">学生认证</van-button>
+    <van-button class="btn-join" @click="joinSub()" v-else>报名</van-button>
   </div>
 </template>
 
 <script>
+  import headerImg from '@/assets/join/banner.png'
   import { Field, Cell, CellGroup, Button } from 'vant'
-  import { mapGetters } from 'vuex'
   import itemTitle from '@/components/itemTitle'
+  import { mapGetters } from 'vuex'
   import { validateEmail, valIph } from '@/utils/validate'
   import { totText } from '@/utils/notice'
-  import { getUserInfo } from '@/api/join'
-  import headerImg from '@/assets/join/banner.png'
+  import { getToken } from '@/api/join'
 
   export default {
     name: 'join',
     components: {
-      ...mapGetters([
-        'code'
-      ]),
       [Field.name]: Field,
       [Cell.name]: Cell,
       [CellGroup.name]: CellGroup,
       [Button.name]: Button,
       itemTitle
     },
+    computed: {
+      ...mapGetters([
+        'codes'
+      ])
+    },
     data() {
       return {
+        states: '',
         headerImg : headerImg+'?v=1',
-        type:'3',
+        type:'2',
         userForm: {
           user_name: '',
           iphone: '',
@@ -54,16 +59,23 @@
         show: false
       }
     },
+    mounted(){
+      this.$nextTick(function () {
+        // console.log(this.$route.params)
+      });
+    },
     created() {
-      console.log(this.$route.params)
+      this.states = this.$route.query['state']
       this.getDate()
     },
     methods: {
       getDate() {
-        const data ={code: this.code, emial: ''}
-        getUserInfo(data).then(response => {
+        const data ={code: this.codes, state: this.states}
+        // console.log(data)
+        getToken(data).then(response => {
           this.$toast.clear();
-          this.type = response.data.type||'3'
+          //this.type = response.data.type||'3'
+          this.type = '2'
           this.userForm = {
             user_name: response.data.name||'',
             iphone: response.data.tel||'',
@@ -77,7 +89,7 @@
       handleShow(){
         this.show = !this.show
       },
-      joinSub(){
+      check(){
         if(this.userForm.user_name===''){
           totText('姓名不能为空')
         }else if(this.userForm.iphone===''){
@@ -89,11 +101,22 @@
         }else if(!validateEmail(this.userForm.emial)){
           totText('邮箱格式不符，请检查输入')
         }else {
-          this.formSub()
+          return true
+        }
+        return false
+      },
+      joinSub(){
+        if(this.check()){
+          console.log('报名提交')
         }
       },
-      formSub(){
-        console.log('提交')
+      authSub(){
+        if(this.check()){
+          console.log('认证提交')
+          this.$store.dispatch('authUrl').then(url => {
+            console.log(url)
+          })
+        }
       },
       handleWx(){
         console.log('进入别克积分')

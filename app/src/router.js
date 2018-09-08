@@ -12,16 +12,20 @@ const routes = [
   },
   {
     name: 'join',
-    component: () => import('./view/join'),
-    meta: {
-      title: '报名表'
-    }
+    meta: {title: '报名表'},
+    component: () => import('./view/join')
+  },
+  {
+    name: 'auth',
+    path: '/auth/*',
+    meta: {title: '认证'},
+    component: () => import('./view/auth')
   }
 ];
 
 // add route path
 routes.forEach(route => {
-  route.path = route.path || '/' + (route.name || '');
+  route.path = route.path || '/' + (route.name || '')
 });
 
 const router = new Router({
@@ -30,20 +34,25 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const title = to.meta && to.meta.title;
-  if (title) {
-    document.title = title;
-  }
-  const code = getUrlKey('code')
-  if(code){
-    store.dispatch('setCode',code).then(() => {
-      next();
-    })
+  if(to.name==='join'){
+    const codes = to.query['code']
+    if(codes){
+      store.dispatch('setCode',codes).then(() => {
+        next()
+      })
+    }else {
+      store.dispatch('jumpUrl').then(url => {
+        console.log(url)
+        location.href = url
+      })
+    }
   }else {
-    store.dispatch('jumpUrl').then(url => {
-      console.log(url)
-      // location.href = url
-    })
+    console.log(to)
+    next()
+  }
+  const title = to.meta && to.meta.title
+  if (title) {
+    document.title = title
   }
 });
 

@@ -1,5 +1,5 @@
 const getters = {
-  app_url: state => state.setting.app_url, //app_url配置
-  code: state => state.setting.code //code配置
+  api_url: state => state.setting.api_url,
+  codes: state => state.setting.codes //code配置
 }
 export default getters

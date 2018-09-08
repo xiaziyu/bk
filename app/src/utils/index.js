@@ -8,6 +8,5 @@ export function getUrlKey(name){
    let flag = Agents.some(item => {
      return userAgentInfo.includes(item)
    })
-   console.log(flag)
    return flag
  }
