@@ -8,7 +8,7 @@ Vue.use(Router);
 const routes = [
   {
     path: '*',
-    redirect: '/h5/join'
+    redirect: '/join'
   },
   // {
   //   path: '/*',
@@ -29,7 +29,7 @@ const routes = [
 
 // add route path
 routes.forEach(route => {
-  route.path = route.path || '/h5/' + (route.name || '')
+  route.path = route.path || '/' + (route.name || '')
 });
 
 const router = new Router({
@@ -40,7 +40,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   //console.log(to)
   if(to.name==='join'){
-    const [codes, states] = [to.query['code'], to.query['state']]
+    const [codes, states, token] = [to.query['code'], to.query['state'], to.query['getToken']]
     //console.log(codes,token)
     if(codes&&states){
       store.dispatch('setCode',{codes, states} ).then(() => {

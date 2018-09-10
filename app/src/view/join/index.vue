@@ -30,7 +30,7 @@
   import { mapGetters } from 'vuex'
   import { validateEmail, valIph } from '@/utils/validate'
   import { totText } from '@/utils/notice'
-  import { getToken } from '@/api/join'
+  import { getToken, getPin } from '@/api/join'
 
   export default {
     name: 'join',
@@ -43,7 +43,8 @@
     },
     computed: {
       ...mapGetters([
-        'codes'
+        'codes',
+        'states'
       ])
     },
     data() {
@@ -73,7 +74,11 @@
         const data ={code: this.codes, state: this.states}
         // console.log(data)
         getToken(data).then(response => {
-          console.log(response)
+          const token = response.data.access_token||''
+          getPin({state: this.states, access_token: token}).then(res => {
+          }).catch(() => {
+            this.$toast.clear();
+          })
           this.$toast.clear();
           //this.type = response.data.type||'3'
           this.type = '2'

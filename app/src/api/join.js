@@ -17,3 +17,11 @@ export function getToken(data) {
     data
   })
 }
+// 获取用户Pin
+export function getPin(data) {
+  return request({
+    url: store.getters.api_url+'App/Auth/getPin',
+    method: 'post',
+    data
+  })
+}

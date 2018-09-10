@@ -32,7 +32,7 @@ const setting = {
     setCode({ commit, state }, data) {
       return new Promise((resolve) => {
         commit('SET_CODE', data.codes)
-        commit('SET_STATES', data.codes)
+        commit('SET_STATES', data.states)
         resolve()
       })
     },
@@ -44,13 +44,13 @@ const setting = {
         resolve(url)
       })
     },
-    tokenUrl({ commit, state}){
-      return new Promise(resolve => {
-        const [token_url, codes, states] = [state['token_url'], state['codes'], state['states']]
-        let url = token_url+'&code='+codes+'&state='+states
-        resolve(url)
-      })
-    },
+    // tokenUrl({ commit, state}){
+    //   return new Promise(resolve => {
+    //     const [token_url, codes, states] = [state['token_url'], state['codes'], state['states']]
+    //     let url = token_url+'&code='+codes+'&state='+states
+    //     resolve(url)
+    //   })
+    // },
     authUrl({ commit, state}) {
       return new Promise(resolve => {
         const [jd_url, back, fail] = [state['auth_url']['url'], state['auth_url']['backURL'], state['auth_url']['failback']]
