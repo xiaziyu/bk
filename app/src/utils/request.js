@@ -5,7 +5,7 @@ import qs from 'qs'
 // 创建axios实例
 const service = axios.create({
   //baseURL: process.env.BASE_API, // api的base_url
-  baseURL: process.env.NODE_ENV === 'production' ? '/' : '/mock/', // api的base_url
+  baseURL: process.env.NODE_ENV === 'production' ? '/' : '/api/', // api的base_url
   timeout: 10000, // 请求超时时间
   headers: {
     post: {
@@ -30,10 +30,10 @@ service.interceptors.response.use(
      * code为非200是抛错
      */
     const res = response.data
-    if (res['code']&&Number(res['code']) === 200){
+    if (res['ret']&&Number(res['ret']) === 200){
       return response.data
     }else {
-      const text = res['message']?res['message']+'['+res['code']+']':'返回异常，请稍候重试'
+      const text = res['msg']?res['msg']+'['+res['ret']+']':'返回异常，请稍候重试'
       totFailD(text)
       return Promise.reject('error')
     }

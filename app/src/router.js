@@ -8,8 +8,12 @@ Vue.use(Router);
 const routes = [
   {
     path: '*',
-    redirect: '/join'
+    redirect: '/h5/join'
   },
+  // {
+  //   path: '/*',
+  //   redirect: '/join'
+  // },
   {
     name: 'join',
     meta: {title: '报名表'},
@@ -17,7 +21,7 @@ const routes = [
   },
   {
     name: 'auth',
-    path: '/auth/*',
+    // path: '/auth/*',
     meta: {title: '认证'},
     component: () => import('./view/auth')
   }
@@ -25,7 +29,7 @@ const routes = [
 
 // add route path
 routes.forEach(route => {
-  route.path = route.path || '/' + (route.name || '')
+  route.path = route.path || '/h5/' + (route.name || '')
 });
 
 const router = new Router({
@@ -34,11 +38,21 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+  //console.log(to)
   if(to.name==='join'){
-    const codes = to.query['code']
-    if(codes){
-      store.dispatch('setCode',codes).then(() => {
+    const [codes, states] = [to.query['code'], to.query['state']]
+    //console.log(codes,token)
+    if(codes&&states){
+      store.dispatch('setCode',{codes, states} ).then(() => {
         next()
+        // if(token){
+        //   next()
+        // }else {
+        //   store.dispatch('tokenUrl').then(url => {
+        //     console.log(url)
+        //     location.href = url
+        //   })
+        // }
       })
     }else {
       store.dispatch('jumpUrl').then(url => {

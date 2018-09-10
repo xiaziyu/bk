@@ -73,6 +73,7 @@
         const data ={code: this.codes, state: this.states}
         // console.log(data)
         getToken(data).then(response => {
+          console.log(response)
           this.$toast.clear();
           //this.type = response.data.type||'3'
           this.type = '2'
@@ -81,7 +82,6 @@
             iphone: response.data.tel||'',
             emial: response.data.email||''
           }
-          console.log(response)
         }).catch(() => {
           this.$toast.clear();
         })

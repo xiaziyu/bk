@@ -13,6 +13,12 @@ module.exports = {
         pathRewrite: {'^/mock' : ''},
         changeOrigin: true,
         secure: false
+      },
+      '/api':{
+        target: 'https://buicktest.jdxyst.com',
+        pathRewrite: {'^/api' : ''},
+        changeOrigin: true,
+        secure: false
       }
     }
   }
