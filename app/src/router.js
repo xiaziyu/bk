@@ -45,14 +45,14 @@ router.beforeEach((to, from, next) => {
     if(codes&&states){
       store.dispatch('setCode',{codes, states} ).then(() => {
         next()
-        // if(token){
-        //   next()
-        // }else {
-        //   store.dispatch('tokenUrl').then(url => {
-        //     console.log(url)
-        //     location.href = url
-        //   })
-        // }
+        /*if(token){
+          next()
+        }else {
+          store.dispatch('tokenUrl').then(url => {
+            console.log(url)
+            location.href = url
+          })
+        }*/
       })
     }else {
       store.dispatch('jumpUrl').then(url => {
