@@ -44,12 +44,12 @@
     computed: {
       ...mapGetters([
         'codes',
-        'states'
+        'states',
+        'source'
       ])
     },
     data() {
       return {
-        states: '',
         headerImg : headerImg+'?v=1',
         type:'2',
         userForm: {
@@ -66,30 +66,16 @@
       });
     },
     created() {
-      this.states = this.$route.query['state']
+      /*if(this.codes){
+        this.getDate()
+      }else {
+        this.$router.push({name:'login'})
+      }*/
       this.getDate()
     },
     methods: {
       getDate() {
-        const data ={code: this.codes, state: this.states}
-        // console.log(data)
-        getToken(data).then(response => {
-          const token = response.data.access_token||''
-          getPin({state: this.states, access_token: token}).then(res => {
-          }).catch(() => {
-            this.$toast.clear();
-          })
-          this.$toast.clear();
-          //this.type = response.data.type||'3'
-          this.type = '2'
-          this.userForm = {
-            user_name: response.data.name||'',
-            iphone: response.data.tel||'',
-            emial: response.data.email||''
-          }
-        }).catch(() => {
-          this.$toast.clear();
-        })
+        this.$toast.clear();
       },
       handleShow(){
         this.show = !this.show
@@ -116,12 +102,10 @@
         }
       },
       authSub(){
-        if(this.check()){
-          console.log('认证提交')
-          this.$store.dispatch('authUrl').then(url => {
-            console.log(url)
-          })
-        }
+        this.$store.dispatch('authUrl').then(url => {
+          console.log(url)
+          location.href = url
+        })
       },
       handleWx(){
         console.log('进入别克积分')

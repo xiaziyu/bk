@@ -4,6 +4,7 @@ import App from './App.vue';
 import { router } from './router';
 import './style/index.less' // global css
 import store from './store'
+import '@/permission'
 
 import { Loading, Toast } from 'vant';
 

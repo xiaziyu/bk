@@ -10,3 +10,8 @@ export function getUrlKey(name){
    })
    return flag
  }
+ export function isWeixin() {
+   const ua = navigator.userAgent.toLowerCase();
+   //console.log(ua)
+   return ua.includes('micromessenger')
+ }

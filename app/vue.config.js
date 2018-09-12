@@ -15,7 +15,7 @@ module.exports = {
         secure: false
       },
       '/api':{
-        target: 'https://buicktest.jdxyst.com',
+        target: 'https://buicktest.g100.org.cn',
         pathRewrite: {'^/api' : ''},
         changeOrigin: true,
         secure: false
