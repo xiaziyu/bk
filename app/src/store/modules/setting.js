@@ -9,9 +9,13 @@ const setting = {
     codes: '',
     states: '',
     source: '01',
-    pin:''
+    pin:'',
+    token: ''
   },
   mutations: {
+    SET_TOKEN: (state, token) => {
+      state.token = token
+    },
     SET_CODE: (state, codes) => {
       state.codes = codes
     },
@@ -28,9 +32,10 @@ const setting = {
   actions:{
     setCode({ commit, state }, data) {
       return new Promise((resolve) => {
-        commit('SET_CODE', data.codes)
-        commit('SET_STATES', data.states)
-        commit('SET_SOURCE', data.source)
+        commit('SET_TOKEN', data.token)
+        // commit('SET_CODE', data.codes)
+        // commit('SET_STATES', data.states)
+        // commit('SET_SOURCE', data.source)
         resolve()
       })
     },

@@ -4,8 +4,9 @@ const redirectUrl = 'https://buicktest.g100.org.cn'
 const setting = {
   state: {
     login_url: {
-      redirect_uri: redirectUrl,
-      jd_url: 'https://oauth.jd.com/oauth/authorize?response_type=code&state=jdbk',
+      back_url: redirectUrl,
+      // jd_url: 'https://oauth.jd.com/oauth/authorize?response_type=code&state=jdbk',
+      jd_url: 'https://wq.jd.com/pinbind/pintokenredirect?biz=jdxyst',
       key: 'D2BF35C3E4CAC36C464BCF810C676123'
     },
     token_url: redirectUrl+'/?r=App/Auth/getToken',
@@ -23,8 +24,8 @@ const setting = {
   actions:{
     jumpUrl({ commit, state }) {
       return new Promise((resolve) => {
-        const [jd_url, key, redirect_uri] = [state['login_url']['jd_url'], state['login_url']['key'], state['login_url']['redirect_uri']]
-        let url = jd_url+'&client_id=' +key+'&redirect_uri=' +redirect_uri
+        const [jd_url, back_url] = [state['login_url']['jd_url'], state['login_url']['back_url']]
+        let url = jd_url+'&url='+back_url
         resolve(url)
       })
     },

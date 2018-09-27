@@ -13,9 +13,10 @@ router.beforeEach((to, from, next) => {
   // console.log(name)
   if(isWeixin()){
     if(to.name==='login'){
-      const [codes, states, source] = [to.query['code'], to.query['state'], '02']
-      if(codes&&states){
-        store.dispatch('setCode',{codes, states, source} ).then(() => {
+      const token = to.query['token']
+      if(token){
+        // alert(to)
+        store.dispatch('setCode',{token} ).then(() => {
           page_next(to, next)
         })
       }else {
