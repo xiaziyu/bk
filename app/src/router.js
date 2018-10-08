@@ -19,10 +19,9 @@ const routes = [
     component: () => import('./view/join')
   },
   {
-    name: 'auth',
-    path: '/auth/*',
-    meta: {title: '认证'},
-    component: () => import('./view/auth')
+    name: 'point',
+    meta: {title: '别克积分'},
+    component: () => import('./view/point')
   }
 ];
 

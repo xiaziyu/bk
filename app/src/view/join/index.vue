@@ -73,7 +73,15 @@
         const data ={token: this.token, source: this.source}
         getPin(data).then(res => {
           console.log(res)
+          store.dispatch('setPin', res.data.pin )
           this.type = res.data.status//res.data.status为1 是已报名，2是未报名
+          if(this.type==='1'){
+            this.userForm = {
+              user_name: res.data.user_name||'',
+              iphone: res.data.phone_num||'',
+              emial: res.data.email||''
+            }
+          }
           this.$toast.clear();
         })
       },
