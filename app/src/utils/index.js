@@ -1,3 +1,5 @@
+import store from "@/store";
+
 // 获取地址栏信息
 export function getUrlKey(name){
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
@@ -10,8 +12,10 @@ export function getUrlKey(name){
    })
    return flag
  }
- export function isWeixin() {
+ export function isOpen() {
    const ua = navigator.userAgent.toLowerCase();
-   //console.log(ua)
-   return ua.includes('micromessenger')
+   const ux = ua.includes('micromessenger')||ua.includes('mqqbrowser')?'WX':true?'JD':''
+   store.dispatch('setSource', ux).then(() => {
+     return ux!==''
+   })
  }

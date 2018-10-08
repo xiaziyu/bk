@@ -5,9 +5,9 @@ const setting = {
   state: {
     // api_url:'/',
     api_url:'?r=',
-    parmars:'?state=jdbk&code=7ME5RK',
+    /*parmars:'?state=jdbk&code=7ME5RK',
     codes: '',
-    states: '',
+    states: '',*/
     source: '01',
     pin:'',
     token: ''
@@ -30,12 +30,18 @@ const setting = {
     }
   },
   actions:{
-    setCode({ commit, state }, data) {
+    setToken({ commit, state }, data) {
       return new Promise((resolve) => {
         commit('SET_TOKEN', data.token)
         // commit('SET_CODE', data.codes)
         // commit('SET_STATES', data.states)
         // commit('SET_SOURCE', data.source)
+        resolve()
+      })
+    },
+    setSource({ commit }, source ){
+      return new Promise((resolve) => {
+        commit('SET_SOURCE', source)
         resolve()
       })
     },

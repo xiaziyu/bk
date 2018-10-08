@@ -1,6 +1,6 @@
 import { router } from './router';
 import store from './store'
-import { getUrlKey, isWeixin } from '@/utils/index'
+import { isOpen } from '@/utils/index'
 import { totFailD } from '@/utils/notice'
 function page_next(to,next) {
   const title = to.meta && to.meta.title
@@ -11,8 +11,15 @@ function page_next(to,next) {
 }
 router.beforeEach((to, from, next) => {
   // console.log(name)
-  if(isWeixin()){
-    if(to.name==='login'){
+  if(isOpen()){
+    if(store.getters.token){
+      page_next(to, next)
+    }else {
+      store.dispatch('jumpUrl').then(url => {
+        location.href = url
+      })
+    }
+    /*if(to.name==='login'){
       const token = to.query['token']
       if(token){
         // alert(to)
@@ -26,8 +33,8 @@ router.beforeEach((to, from, next) => {
       }
     }else {
       page_next(to, next)
-    }
+    }*/
   }else {
-    totFailD('请在微信中打开')
+    totFailD('请在微信或京东中打开')
   }
 });

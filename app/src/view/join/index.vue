@@ -18,7 +18,6 @@
     </div>
     <p class="join_jf" @click="handleWx()" v-if="type==='1'"><span>进入别克积分</span></p>
     <van-button class="btn-join" v-if="type==='1'" disabled>已报名</van-button>
-    <van-button class="btn-join" @click="authSub()" v-else-if="type==='2'">学生认证</van-button>
     <van-button class="btn-join" @click="joinSub()" v-else>报名</van-button>
   </div>
 </template>
@@ -30,7 +29,8 @@
   import { mapGetters } from 'vuex'
   import { validateEmail, valIph } from '@/utils/validate'
   import { totText } from '@/utils/notice'
-  import { getToken, getPin } from '@/api/join'
+  import { getPin } from '@/api/login'
+  //import { getToken, getPin } from '@/api/join'
 
   export default {
     name: 'join',
@@ -43,8 +43,8 @@
     },
     computed: {
       ...mapGetters([
-        'codes',
-        'states',
+        'token',
+        'pin',
         'source'
       ])
     },
@@ -66,16 +66,16 @@
       });
     },
     created() {
-      /*if(this.codes){
-        this.getDate()
-      }else {
-        this.$router.push({name:'login'})
-      }*/
       this.getDate()
     },
     methods: {
       getDate() {
-        this.$toast.clear();
+        const data ={token: this.token, source: this.source}
+        getPin(data).then(res => {
+          console.log(res)
+          this.type = res.data.status//res.data.status为1 是已报名，2是未报名
+          this.$toast.clear();
+        })
       },
       handleShow(){
         this.show = !this.show

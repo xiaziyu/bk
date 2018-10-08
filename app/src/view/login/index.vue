@@ -7,29 +7,39 @@
 <script>
   import { mapGetters } from 'vuex'
   import { totFailD } from '@/utils/notice'
-  import { getToken, getPin } from '@/api/login'
+  import { getPin } from '@/api/login'
 
   export default{
     name: 'login',
     computed: {
       ...mapGetters([
+        'source',
         'token',
-        'states',
         'pin'
       ])
     },
     created() {
       this.getDate()
+      if(this.$route.query['token']){
+        const data ={token: this.token}
+        store.dispatch('setToken', data ).then(() => {
+          this.$router.push({name:'join'})
+          //this.getDate()
+        })
+      }else {
+        store.dispatch('jumpUrl').then(url => {
+          location.href = url
+        })
+      }
     },
     methods: {
       getDate() {
         const data ={token: this.token}
-        alert(this.token)
-          getPin(data).then(res => {
-            alert(JSON.stringify(res))
-          })
-          // this.$router.push({name:'join'})
-      },
+        getPin(data).then(res => {
+          console.log(res)
+          this.$router.push({name:'join'})
+        })
+      }
     }
   }
 
