@@ -12,8 +12,8 @@
       <itemTitle :title="'报名信息填写'"></itemTitle>
       <van-cell-group class="form">
         <van-field v-model="userForm.user_name" :readonly="type==='1'" clearable label="姓名" placeholder="请输入姓名" maxlength="20"/>
-        <van-field v-model="userForm.iphone" :readonly="type==='1'" clearable label="手机号" placeholder="请输入手机号" maxlength="11"/>
-        <van-field v-model="userForm.emial" :disabled="type==='1'" clearable label="邮箱" placeholder="请输入常用邮箱" maxlength="50"/>
+        <van-field v-model="userForm.phone_num" :readonly="type==='1'" clearable label="手机号" placeholder="请输入手机号" maxlength="11"/>
+        <van-field v-model="userForm.email" :disabled="type==='1'" clearable label="邮箱" placeholder="请输入常用邮箱" maxlength="50"/>
       </van-cell-group>
     </div>
     <p class="join_jf" @click="handleWx()" v-if="type==='1'"><span>进入别克积分</span></p>
@@ -54,8 +54,8 @@
         type:'2',
         userForm: {
           user_name: '',
-          iphone: '',
-          emial: ''
+          phone_num: '',
+          email: ''
         },
         show: false
       }
@@ -79,8 +79,8 @@
           if(this.type==='1'){
             this.userForm = {
               user_name: res.data.user_name||'',
-              iphone: res.data.phone_num||'',
-              emial: res.data.email||''
+              phone_num: res.data.phone_num||'',
+              email: res.data.email||''
             }
           }
           this.$toast.clear();
@@ -92,13 +92,13 @@
       check(){
         if(this.userForm.user_name===''){
           totText('姓名不能为空')
-        }else if(this.userForm.iphone===''){
+        }else if(this.userForm.phone_num===''){
           totText('手机号不能为空')
-        }else if(!valIph(this.userForm.iphone)){
+        }else if(!valIph(this.userForm.phone_num)){
           totText('手机号格式不符，请检查输入')
-        }else if(this.userForm.emial===''){
+        }else if(this.userForm.email===''){
           totText('邮箱不能为空')
-        }else if(!validateEmail(this.userForm.emial)){
+        }else if(!validateEmail(this.userForm.email)){
           totText('邮箱格式不符，请检查输入')
         }else {
           return true
@@ -107,8 +107,10 @@
       },
       joinSub(){
         if(this.check()){
-          subJoin().then(res => {
-
+          const data = { pin: this.pin, ...this.userForm }
+          alert(JSON.stringify(data))
+          subJoin(data).then(res => {
+            alert(JSON.stringify(res))
           })
           console.log('报名提交')
         }
@@ -117,5 +119,5 @@
         console.log('进入别克积分')
       }
     }
-  };
+  }
 </script>
