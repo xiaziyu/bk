@@ -1,3 +1,6 @@
+<style lang="less">
+  @import './index.less';
+</style>
 <template>
   <div class="page page-join">
     <img class="page-top" :src="headerImg">
@@ -27,6 +30,7 @@
   import { Field, Cell, CellGroup, Button } from 'vant'
   import itemTitle from '@/components/itemTitle'
   import { mapGetters } from 'vuex'
+  import { mapActions } from 'vuex'
   import { validateEmail, valIph } from '@/utils/validate'
   import { totText } from '@/utils/notice'
   import { getPin } from '@/api/login'
@@ -69,12 +73,17 @@
       this.getDate()
     },
     methods: {
+      ...mapActions([
+        'setPin',
+        'getUserInfo'
+      ]),
       getDate() {
         const data ={token: this.token, source: this.source}
         alert(JSON.stringify(data))
         getPin(data).then(res => {
           console.log(res)
-          store.dispatch('setPin', res.data.pin )
+          this.setPin(res.data.pin)
+          //store.dispatch('setPin', res.data.pin )
           this.type = res.data.status//res.data.status为1 是已报名，2是未报名
           if(this.type==='1'){
             this.userForm = {
@@ -83,7 +92,7 @@
               email: res.data.email||''
             }
           }
-          this.$toast.clear();
+          this.$toast.clear()
         })
       },
       handleShow(){
