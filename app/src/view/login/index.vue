@@ -19,15 +19,14 @@
       ])
     },
     created() {
-      this.getDate()
+      console.log(this.$route.query['token'])
       if(this.$route.query['token']){
-        const data ={token: this.token}
-        store.dispatch('setToken', data ).then(() => {
+        const token = this.$route.query['token']
+        this.$store.dispatch('setToken', { token } ).then(() => {
           this.$router.push({name:'join'})
-          //this.getDate()
         })
       }else {
-        store.dispatch('jumpUrl').then(url => {
+        this.$store.dispatch('jumpUrl').then(url => {
           location.href = url
         })
       }

@@ -8,7 +8,7 @@ const setting = {
     /*parmars:'?state=jdbk&code=7ME5RK',
     codes: '',
     states: '',*/
-    source: '01',
+    source: '',
     pin:'',
     token: ''
   },

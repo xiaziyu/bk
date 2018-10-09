@@ -30,7 +30,7 @@
   import { validateEmail, valIph } from '@/utils/validate'
   import { totText } from '@/utils/notice'
   import { getPin } from '@/api/login'
-  //import { getToken, getPin } from '@/api/join'
+  import { subJoin } from '@/api/join'
 
   export default {
     name: 'join',
@@ -71,6 +71,7 @@
     methods: {
       getDate() {
         const data ={token: this.token, source: this.source}
+        alert(JSON.stringify(data))
         getPin(data).then(res => {
           console.log(res)
           store.dispatch('setPin', res.data.pin )
@@ -106,14 +107,11 @@
       },
       joinSub(){
         if(this.check()){
+          subJoin().then(res => {
+
+          })
           console.log('报名提交')
         }
-      },
-      authSub(){
-        this.$store.dispatch('authUrl').then(url => {
-          console.log(url)
-          location.href = url
-        })
       },
       handleWx(){
         console.log('进入别克积分')

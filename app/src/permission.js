@@ -2,22 +2,23 @@ import { router } from './router';
 import store from './store'
 import { isOpen } from '@/utils/index'
 import { totFailD } from '@/utils/notice'
-function page_next(to,next) {
-  const title = to.meta && to.meta.title
-  if (title) {
-    document.title = title
-  }
-  next()
-}
+
+const whiteList = ['login']
+
 router.beforeEach((to, from, next) => {
-  // console.log(name)
   if(isOpen()){
-    if(store.getters.token){
-      page_next(to, next)
+    if(whiteList.includes(to.name)){
+      next()
     }else {
-      store.dispatch('jumpUrl').then(url => {
-        location.href = url
-      })
+      if(store.getters.token){
+        const title = to.meta && to.meta.title
+        if (title) {
+          document.title = title
+        }
+        next()
+      }else {
+        next({ name: 'login' })
+      }
     }
     /*if(to.name==='login'){
       const token = to.query['token']
