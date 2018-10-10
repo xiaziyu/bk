@@ -64,11 +64,6 @@
         show: false
       }
     },
-    mounted(){
-      this.$nextTick(function () {
-        // console.log(this.$route.params)
-      });
-    },
     created() {
       this.getDate()
     },
@@ -80,9 +75,7 @@
         const data ={token: this.token, source: this.source}
         alert(JSON.stringify(data))
         getPin(data).then(res => {
-          console.log(res)
           this.setPin(res.data.pin)
-          //store.dispatch('setPin', res.data.pin )
           this.type = res.data.status//res.data.status为1 是已报名，2是未报名
           if(this.type==='1'){
             this.userForm = {
@@ -119,10 +112,8 @@
         if(this.check()){
           if(this.pin!==''){
             const data = { pin: this.pin, ...this.userForm }
-            alert(JSON.stringify(data))
             subJoin(data).then(res => {
               this.$toast.clear()
-              alert(JSON.stringify(res))
               totSuc('报名成功')
               this.type = '1'
             })
