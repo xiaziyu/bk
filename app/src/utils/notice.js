@@ -9,6 +9,7 @@ export function totText(text) {
 export function totFail(text) {
   Vue.prototype.$toast.fail({
     duration: 5*1000, // 显示时间
+    forbidClick: true, // 禁用背景点击
     message: text
   })
 }

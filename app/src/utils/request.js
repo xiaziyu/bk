@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { totFailD } from '@/utils/notice'
+import { totFailD, totFail } from '@/utils/notice'
 import qs from 'qs'
 
 // 创建axios实例
@@ -34,13 +34,13 @@ service.interceptors.response.use(
       return response.data
     }else {
       const text = res['msg']?res['msg']+'['+res['ret']+']':'返回异常，请稍候重试'
-      totFailD(text)
+      totFail(text)
       return Promise.reject('error')
     }
   },
   error => {
     console.log(error.response)// for debug
-    totFailD('网络异常，请稍候重试')
+    totFail('网络异常，请稍候重试')
     return Promise.reject(error.response)
   }
 )

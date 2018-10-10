@@ -74,8 +74,7 @@
     },
     methods: {
       ...mapActions([
-        'setPin',
-        'getUserInfo'
+        'setPin'
       ]),
       getDate() {
         const data ={token: this.token, source: this.source}
@@ -119,12 +118,18 @@
           const data = { pin: this.pin, ...this.userForm }
           alert(JSON.stringify(data))
           subJoin(data).then(res => {
+            this.$toast.clear()
             alert(JSON.stringify(res))
+          }).catch(()=>{
+            setTimeout(function () {
+              this.$toast.clear()
+            },3000)
           })
           console.log('报名提交')
         }
       },
       handleWx(){
+        this.$router.push({name:'point'})
         console.log('进入别克积分')
       }
     }
