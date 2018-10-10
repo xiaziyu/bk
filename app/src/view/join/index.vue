@@ -32,7 +32,7 @@
   import { mapGetters } from 'vuex'
   import { mapActions } from 'vuex'
   import { validateEmail, valIph } from '@/utils/validate'
-  import { totText } from '@/utils/notice'
+  import { totText, totFailD, totSuc } from '@/utils/notice'
   import { getPin } from '@/api/login'
   import { subJoin } from '@/api/join'
 
@@ -92,6 +92,8 @@
             }
           }
           this.$toast.clear()
+        }).catch(error => {
+          totFailD(error)
         })
       },
       handleShow(){
@@ -115,17 +117,18 @@
       },
       joinSub(){
         if(this.check()){
-          const data = { pin: this.pin, ...this.userForm }
-          alert(JSON.stringify(data))
-          subJoin(data).then(res => {
-            this.$toast.clear()
-            alert(JSON.stringify(res))
-          }).catch(()=>{
-            setTimeout(function () {
+          if(this.pin!==''){
+            const data = { pin: this.pin, ...this.userForm }
+            alert(JSON.stringify(data))
+            subJoin(data).then(res => {
               this.$toast.clear()
-            },3000)
-          })
-          console.log('报名提交')
+              alert(JSON.stringify(res))
+              totSuc('报名成功')
+              this.type = '1'
+            })
+          }else {
+            this.getDate()
+          }
         }
       },
       handleWx(){

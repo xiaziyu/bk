@@ -35,13 +35,13 @@ service.interceptors.response.use(
     }else {
       const text = res['msg']?res['msg']+'['+res['ret']+']':'返回异常，请稍候重试'
       totFail(text)
-      return Promise.reject('error')
+      return Promise.reject(text)
     }
   },
   error => {
     console.log(error.response)// for debug
     totFail('网络异常，请稍候重试')
-    return Promise.reject(error.response)
+    return Promise.reject(error)
   }
 )
 export default service
