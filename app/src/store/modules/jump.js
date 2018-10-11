@@ -6,10 +6,9 @@ const setting = {
     login_url: {
       back_url: redirectUrl,
       // jd_url: 'https://oauth.jd.com/oauth/authorize?response_type=code&state=jdbk',
-      jd_url: 'https://wq.jd.com/pinbind/pintokenredirect?biz=jdxyst',
-      key: 'D2BF35C3E4CAC36C464BCF810C676123'
+      jd_url: 'https://wq.jd.com/pinbind/pintokenredirect?biz=jdxyst'
+      //key: 'D2BF35C3E4CAC36C464BCF810C676123'
     },
-    token_url: redirectUrl+'/?r=App/Auth/getToken',
     auth_url: {
       url:'https://bt.jd.com/v3/mobile/zoneAuth?source=s2',
       backURL: redirectUrl+'/auth/success',
@@ -29,14 +28,7 @@ const setting = {
         resolve(url)
       })
     },
-    // tokenUrl({ commit, state}){
-    //   return new Promise(resolve => {
-    //     const [token_url, codes, states] = [state['token_url'], state['codes'], state['states']]
-    //     let url = token_url+'&code='+codes+'&state='+states
-    //     resolve(url)
-    //   })
-    // },
-    authUrl({ commit, state}) {
+    usersUrl({ commit, state}) {
       return new Promise(resolve => {
         const [jd_url, back, fail] = [state['auth_url']['url'], state['auth_url']['backURL'], state['auth_url']['failback']]
         let url = jd_url+'&backURL='+back+'&failbackurl='+fail

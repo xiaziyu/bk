@@ -10,15 +10,15 @@ router.beforeEach((to, from, next) => {
     if(whiteList.includes(to.name)){
       next()
     }else {
-      if(store.getters.token){
+      // if(store.getters.token){
         const title = to.meta && to.meta.title
         if (title) {
           document.title = title
         }
         next()
-      }else {
-        next({ name: 'login' })
-      }
+      // }else {
+      //   next({ name: 'login' })
+      // }
     }
     /*if(to.name==='login'){
       const token = to.query['token']

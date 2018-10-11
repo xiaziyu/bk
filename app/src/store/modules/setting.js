@@ -1,13 +1,8 @@
-// import { IsWap } from '@/utils/index'
 
-const redirectUrl = 'https://buicktest.g100.org.cn'
 const setting = {
   state: {
     // api_url:'/',
     api_url:'?r=',
-    /*parmars:'?state=jdbk&code=7ME5RK',
-    codes: '',
-    states: '',*/
     source: '',
     pin:'',
     token: ''
@@ -33,9 +28,6 @@ const setting = {
     setToken({ commit, state }, data) {
       return new Promise((resolve) => {
         commit('SET_TOKEN', data.token)
-        // commit('SET_CODE', data.codes)
-        // commit('SET_STATES', data.states)
-        // commit('SET_SOURCE', data.source)
         resolve()
       })
     },
@@ -47,7 +39,6 @@ const setting = {
     },
     setPin({ commit, state}, pin){
       return new Promise((resolve) => {
-        console.log(pin)
         commit('SET_PIN', pin)
         resolve()
       })
