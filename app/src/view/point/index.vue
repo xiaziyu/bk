@@ -85,7 +85,7 @@
       }
     },
     created() {
-      this.getDate()
+      this.getUsers()
     },
     methods: {
       ...mapActions([
@@ -110,6 +110,7 @@
       },
       getUsers(){
         getPoint({pin: this.pin}).then(res => {
+          console.log(res)
           if(res.data.status){
             this.userInfo = {
               icon: res.data.icon||'',
@@ -119,9 +120,7 @@
             }
             this.getDate()
           }else {
-            this.usersUrl().then(url => {
-              alert('跳转认证')
-            })
+            alert(res.data.sign_url)
           }
         }).catch(()=> {
           this.isLoading = false

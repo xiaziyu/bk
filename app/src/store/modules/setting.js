@@ -11,12 +11,6 @@ const setting = {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
-    SET_CODE: (state, codes) => {
-      state.codes = codes
-    },
-    SET_STATES: (state, states) => {
-      state.states = states
-    },
     SET_SOURCE: (state, source) => {
       state.source = source
     },

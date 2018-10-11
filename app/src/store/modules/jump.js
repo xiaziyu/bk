@@ -1,4 +1,3 @@
-// import { IsWap } from '@/utils/index'
 
 const redirectUrl = 'https://buicktest.g100.org.cn'
 const setting = {
@@ -8,11 +7,6 @@ const setting = {
       // jd_url: 'https://oauth.jd.com/oauth/authorize?response_type=code&state=jdbk',
       jd_url: 'https://wq.jd.com/pinbind/pintokenredirect?biz=jdxyst'
       //key: 'D2BF35C3E4CAC36C464BCF810C676123'
-    },
-    auth_url: {
-      url:'https://bt.jd.com/v3/mobile/zoneAuth?source=s2',
-      backURL: redirectUrl+'/auth/success',
-      failback: redirectUrl+'/auth/fail'
     }
   },
   mutations: {
