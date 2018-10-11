@@ -10,7 +10,7 @@
       <div class="avatar_info">
         <p class="name" v-text="userInfo.user_name"></p>
         <p>当前积分：{{userInfo.jd_point}}</p>
-        <p>别克汇积分：{{userInfo.buick_point}}</p>
+        <p>别克汇积分：<button v-if="btnIsShow" @click="handleJoin()" class="join_btn">加入</button><span v-else>{{userInfo.buick_point}}</span></p>
       </div>
       <button class="inter_btn" @click="interSub()">积分互通</button>
     </div>
@@ -19,7 +19,7 @@
         <a :href="moreUrl" class="icon icon-arrow-right gift_more">更多</a>
       </h1>
       <ul class="gift_list">
-        <li class="gift_img" v-for="(item, i) in giftList"><a :href="item.url" v-lazy:background-image="item.img_url"></a></li>
+        <li class="gift_img" v-for="(item, i) in giftList" @click="handleGift(item.url)"><img v-lazy="item.img_url"/></li>
       </ul>
     </div>
     <div class="taskBox">
@@ -48,8 +48,8 @@
   import { mapGetters } from 'vuex'
   import { mapActions } from 'vuex'
   import { Lazyload, PullRefresh } from 'vant'
-  import { totFailD } from '@/utils/notice'
-  import { getPoint, getGift, getTask } from '@/api/point'
+  import { totFailD, totText, totSucD } from '@/utils/notice'
+  import { getPoint, changePoint, getGift, getTask } from '@/api/point'
 
   Vue.use(Lazyload, {
     preLoad: 1,
@@ -75,10 +75,12 @@
         isLoading: false,
         userInfo: {
           icon:'',
-          user_name: 'xxx',
-          buick_point: '89',
-          jd_point:'12'
+          user_name: '',
+          buick_point: '0',
+          jd_point:'0'
         },
+        sing_url: '',
+        btnIsShow: false,
         moreUrl: '',
         giftList:[],
         taskList: []
@@ -91,6 +93,22 @@
       ...mapActions([
         'usersUrl'
       ]),
+      getUsers(){
+        getPoint({pin: this.pin}).then(res => {
+          console.log(res)
+          this.userInfo = {
+            icon: res.data.icon||'',
+            user_name: res.data.user_name||'--',
+            buick_point: res.data.buick_point||'0',
+            jd_point:res.data.jd_point||'0'
+          }
+          this.btnIsShow = !res.data.status
+          this.sign_url = res.data.sign_url || ''
+        }).catch(()=> {
+          this.isLoading = false
+        })
+        this.getDate()
+      },
       getDate() {
         getGift().then(res => {
           this.giftList = res.data.giftList
@@ -108,30 +126,34 @@
           this.isLoading = false
         })
       },
-      getUsers(){
-        getPoint({pin: this.pin}).then(res => {
-          console.log(res)
-          if(res.data.status){
-            this.userInfo = {
-              icon: res.data.icon||'',
-              user_name: res.data.user_name||'未知',
-              buick_point: res.data.buick_point||'0',
-              jd_point:res.data.jd_point||'0'
-            }
-            this.getDate()
-          }else {
-            alert(res.data.sign_url)
-          }
-        }).catch(()=> {
-          this.isLoading = false
-        })
-      },
       interSub(){
-        console.log('积分互通')
+        if(!this.btnIsShow){
+          if(this.userInfo.jd_point&&Number(this.userInfo.jd_point)>0){
+            changePoint({pin: this.pin}).then(res => {
+              totSucD('兑换成功')
+              this.getUsers()
+            })
+          }else {
+            totText('您的京东积分不足！')
+          }
+        }else {
+          totText('您还未加入别克会员！')
+        }
+      },
+      handleJoin(){
+        if(this.sign_url){
+          location.href = this.sign_url
+        }
+      },
+      handleGift(url){
+        if(url){
+          location.href = url
+        }
       },
       handleTask(url){
-        location.href = url
-        console.log(url)
+        if(url){
+          location.href = url
+        }
       }
     }
   }

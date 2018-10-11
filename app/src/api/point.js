@@ -8,6 +8,14 @@ export function getPoint(data) {
     data
   })
 }
+// 积分互通
+export function changePoint(data) {
+  return request({
+    url: store.getters.api_url+'App/Main/exchangePoint',
+    method: 'post',
+    data
+  })
+}
 // 热门礼品
 export function getGift(data) {
   return request({

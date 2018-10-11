@@ -16,7 +16,7 @@ export function getUrlKey(name){
    const ua = navigator.userAgent.toLowerCase();
    const ux = ua.includes('micromessenger')||ua.includes('mqqbrowser')?'WX':true?'JD':''
    if(!store.getters.source){
-     store.dispatch('setSource', ux)
+     store.dispatch('changeSource', ux)
    }
    return ux!==''
  }

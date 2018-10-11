@@ -73,15 +73,13 @@
     },
     methods: {
       ...mapActions([
-        'setPin'
+        'changePin'
       ]),
       getDate() {
         const data ={token: this.token, source: this.source}
-        alert(JSON.stringify(data))
         getPin(data).then(res => {
           this.isLoading = false
-          this.setPin(res.data.pin)
-          alert(JSON.stringify(res))
+          this.changePin(res.data.pin)
           this.type = res.data.status//res.data.status为1 是已报名，2是未报名
           if(this.type==='1'){
             this.userForm = {

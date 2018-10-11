@@ -6,6 +6,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import { mapActions } from 'vuex'
   import { totFailD } from '@/utils/notice'
   import { getPin } from '@/api/login'
 
@@ -18,25 +19,34 @@
         'pin'
       ])
     },
+
     created() {
-      console.log(this.$route.query['token'])
-      if(this.$route.query['token']){
-        const token = this.$route.query['token']
-        this.$store.dispatch('setToken', { token } ).then(() => {
-          this.$router.push({name:'join'})
+      const token = this.$route.query['token']||''
+      if(token){
+        this.changeToken({ token } ).then(() => {
+          this.getDate()
         })
       }else {
-        this.$store.dispatch('jumpUrl').then(url => {
+        this.jumpUrl().then(url => {
           location.href = url
         })
       }
     },
     methods: {
+      ...mapActions([
+        'changeToken',
+        'changePin',
+        'jumpUrl'
+      ]),
       getDate() {
-        const data ={token: this.token}
+        const data ={token: this.token, source: this.source}
         getPin(data).then(res => {
-          console.log(res)
-          this.$router.push({name:'join'})
+          this.changePin(res.data.pin)
+          if(res.data.status==='1'){
+            this.$router.push({name:'point'})
+          }else {
+            this.$router.push({name:'join'})
+          }
         })
       }
     }

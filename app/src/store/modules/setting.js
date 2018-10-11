@@ -1,11 +1,12 @@
+import { getToken, setToken, removeToken, getPin, setPin, removePin } from '@/utils/auth'
 
 const setting = {
   state: {
     // api_url:'/',
     api_url:'?r=',
     source: '',
-    pin:'',
-    token: ''
+    pin: getToken()||'',
+    token: getPin()||''
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -19,21 +20,23 @@ const setting = {
     }
   },
   actions:{
-    setToken({ commit, state }, data) {
+    changeToken({ commit }, data) {
       return new Promise((resolve) => {
         commit('SET_TOKEN', data.token)
+        setToken(data.token)
         resolve()
       })
     },
-    setSource({ commit }, source ){
+    changeSource({ commit }, source ){
       return new Promise((resolve) => {
         commit('SET_SOURCE', source)
         resolve()
       })
     },
-    setPin({ commit, state}, pin){
+    changePin({ commit}, pin){
       return new Promise((resolve) => {
         commit('SET_PIN', pin)
+        setPin(pin)
         resolve()
       })
     }

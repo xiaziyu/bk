@@ -28,4 +28,9 @@ export function totSuc(text) {
     message: text
   })
 }
-
+export function totSucD(text) {
+  Vue.prototype.$toast.success({
+    duration: 0, //始终显示
+    message: text
+  })
+}
