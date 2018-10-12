@@ -1,0 +1,46 @@
+import { getToken, setToken, removeToken, getPin, setPin, removePin } from '@/utils/auth'
+
+const setting = {
+  state: {
+    // api_url:'/',
+    api_url:'?r=',
+    source: '',
+    pin: getToken()||'',
+    token: getPin()||''
+  },
+  mutations: {
+    SET_TOKEN: (state, token) => {
+      state.token = token
+    },
+    SET_SOURCE: (state, source) => {
+      state.source = source
+    },
+    SET_PIN: (state, pin) => {
+      state.pin = pin
+    }
+  },
+  actions:{
+    changeToken({ commit }, data) {
+      return new Promise((resolve) => {
+        commit('SET_TOKEN', data.token)
+        setToken(data.token)
+        resolve()
+      })
+    },
+    changeSource({ commit }, source ){
+      return new Promise((resolve) => {
+        commit('SET_SOURCE', source)
+        resolve()
+      })
+    },
+    changePin({ commit}, pin){
+      return new Promise((resolve) => {
+        commit('SET_PIN', pin)
+        setPin(pin)
+        resolve()
+      })
+    }
+  }
+}
+
+export default setting

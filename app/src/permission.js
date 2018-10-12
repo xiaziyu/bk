@@ -1,4 +1,4 @@
-import { router } from './router';
+import { router } from '@/router/index';
 import store from './store'
 import { isOpen } from '@/utils/index'
 import { totFailD } from '@/utils/notice'

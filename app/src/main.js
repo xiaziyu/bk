@@ -1,7 +1,7 @@
 import './common/rem';
 import Vue from 'vue';
 import App from './App.vue';
-import { router } from './router';
+import { router } from './router/index';
 import './style/index.less' // global css
 import store from './store'
 import '@/permission'

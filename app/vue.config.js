@@ -3,6 +3,22 @@ module.exports = {
   outputDir: '../public',
   lintOnSave: true,
   productionSourceMap: false,
+  pages: {
+    index: {
+      entry: 'src/main.js',
+      // the source template
+      template: 'public/index.html',
+      // output as dist/index.html
+      filename: 'index.html'
+    },
+    admin: {
+      entry: 'src/admin.js',
+      // the source template
+      template: 'public/admin.html',
+      // output as dist/index.html
+      filename: 'admin.html'
+    }
+  },
   devServer: {
     host: 'localhost',
     port: 1375,
