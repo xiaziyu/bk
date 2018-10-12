@@ -9,13 +9,20 @@ Vue.use(Router)
 const routes = [
   {
     path: '*',
-    redirect: '/admin/login',
+    redirect: '/admin/404',
     hidden: true
   },
   {
-    path: '/',
+    path: '/admin/*',
     redirect: '/admin/point/index',
     hidden: true
+  },
+  {
+    name: '404',
+    path: '/admin/404',
+    hidden: true,
+    meta: {title: '找不到页面'},
+    component: _import('404/index')
   },
   {
     name: 'login',
