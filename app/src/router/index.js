@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Layout from '@/viewAdmin/layout/index'
+export const _import = file => () => import('@/viewAdmin/' + file)
 Vue.use(Router)
 
 const routes = [
