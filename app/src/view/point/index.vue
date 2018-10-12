@@ -12,7 +12,7 @@
         <p>当前积分：{{userInfo.jd_point}}</p>
         <p>别克汇积分：<button v-if="btnIsShow" @click="handleJoin()" class="join_btn">加入</button><span v-else>{{userInfo.buick_point}}</span></p>
       </div>
-      <button class="inter_btn" @click="interSub()">积分互通</button>
+      <button class="inter_btn" @click="interSub()">积分互</button>
     </div>
     <div class="giftBox">
       <h1 class="title">热门礼品

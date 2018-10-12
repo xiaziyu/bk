@@ -35,7 +35,8 @@ service.interceptors.response.use(
     }else {
       const text = res['msg']?res['msg']+'['+res['ret']+']':'返回异常，请稍候重试'
       totFail(text)
-      return Promise.reject(text)
+      //alert(response.config.url+JSON.stringify(res))
+      return Promise.reject(text+response.config.url)
     }
   },
   error => {
