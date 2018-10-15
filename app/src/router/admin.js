@@ -13,7 +13,7 @@ const routes = [
     hidden: true
   },
   {
-    path: '/admin/*',
+    path: '/',
     redirect: '/admin/point/index',
     hidden: true
   },
