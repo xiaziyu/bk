@@ -39,6 +39,8 @@ import App from './App.vue'
 import { router } from './router/admin';
 import './style/admin.less' // global css
 import store from './store'
+// import '@/request/admin'
+import '@/icons' // icon
 Vue.prototype.$ELEMENT = { size: 'small'}
 Vue.config.productionTip = false
 

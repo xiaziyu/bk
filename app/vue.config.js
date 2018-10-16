@@ -9,15 +9,54 @@ module.exports = {
       // the source template
       template: 'public/index.html',
       // output as dist/index.html
-      filename: 'index.html'
+      filename: 'index.html',
+      chunks: ['chunk-libs', 'chunk-common', 'index', 'chunk-vant']
     },
     admin: {
       entry: 'src/admin.js',
       // the source template
       template: 'public/admin.html',
       // output as dist/index.html
-      filename: 'admin.html'
+      filename: 'admin.html',
+      chunks: ['chunk-libs', 'chunk-common', 'admin', 'chunk-elementUI']
     }
+  },
+  configureWebpack: config => {
+    Object.assign(config, { // 开发生产共同配置
+      optimization: {
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            libs: {
+              name: 'chunk-libs',
+              test: /[\\/]node_modules[\\/]/,
+              priority: 10,
+              chunks: 'initial' // 只打包初始时依赖的第三方
+            },
+            elementUI: {
+              name: 'chunk-elementUI', // 单独将 elementUI 拆包
+              priority: 20, // 权重要大于 libs 和 app 不然会被打包进 libs 或者 app
+              test: /[\\/]node_modules[\\/]element-ui[\\/]/
+            },
+            vant: {
+              name: 'chunk-vant', // 单独将 vant 拆包
+              priority: 20, // 权重要大于 libs 和 app 不然会被打包进 libs 或者 app
+              test: /[\\/]node_modules[\\/]vant[\\/]/
+            }
+          }
+        }
+      }
+    })
+  },
+  chainWebpack: config => {
+    const svgRule = config.module.rule('svg')
+    svgRule.uses.clear()
+    svgRule
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]'
+      })
   },
   devServer: {
     host: 'localhost',

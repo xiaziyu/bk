@@ -1,46 +1,78 @@
-import { getToken, setToken, removeToken, getPin, setPin, removePin } from '@/utils/auth'
+import Cookies from 'js-cookie'
+import { getName, setName, removeName } from '@/utils/auth'
+import { loginByUsername, logout } from '@/apiAdmin/login'
 
-const setting = {
+const admin = {
   state: {
-    // api_url:'/',
-    api_url:'?r=',
-    source: '',
-    pin: getToken()||'',
-    token: getPin()||''
+    name: getName(),
+    sidebar: {
+      opened: !+Cookies.get('sidebarStatus')
+    },
+    pagination: {
+      limit: 30,
+      tableMax: 590,
+      layout: 'total, prev, pager, next'
+    },
+    loading: true
   },
   mutations: {
-    SET_TOKEN: (state, token) => {
-      state.token = token
+    SET_NAME: (state, name) => {
+      state.name = name
     },
-    SET_SOURCE: (state, source) => {
-      state.source = source
+    TOGGLE_SIDEBAR: state => {
+      if (state.sidebar.opened) {
+        Cookies.set('sidebarStatus', 1)
+      } else {
+        Cookies.set('sidebarStatus', 0)
+      }
+      state.sidebar.opened = !state.sidebar.opened
     },
-    SET_PIN: (state, pin) => {
-      state.pin = pin
+    TOGGLE_LOAD: (state, value) => {
+      state.loading = value
     }
   },
-  actions:{
-    changeToken({ commit }, data) {
-      return new Promise((resolve) => {
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
+  actions: {
+    toggleSideBar({ commit }) {
+      commit('TOGGLE_SIDEBAR')
+    },
+    toggleLoad({ commit } , value){
+      commit('TOGGLE_LOAD', value)
+    },
+    LoginByUsername({ commit } , userInfo){
+      return new Promise((resolve, reject) => {
+        loginByUsername(userInfo).then(response => {
+          const data = response.data
+          setName(data.name)
+          commit('SET_NAME', data.name)
+          resolve()
+        }).catch(error => {
+          console.log('用户名登录有误')
+          reject(error)
+        })
+      }).catch(error=>console.log(error))
+    },
+    // 登出
+    adminLogOut({ commit }) {
+      return new Promise((resolve, reject) => {
+        logout().then(() => {
+          commit('SET_NAME', '')
+          removeName()
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
       })
     },
-    changeSource({ commit }, source ){
-      return new Promise((resolve) => {
-        commit('SET_SOURCE', source)
-        resolve()
-      })
-    },
-    changePin({ commit}, pin){
-      return new Promise((resolve) => {
-        commit('SET_PIN', pin)
-        setPin(pin)
+
+    // 前端 登出
+    adminFedLogOut({ commit }) {
+      return new Promise(resolve => {
+        commit('SET_NAME', '')
+        removeName()
         resolve()
       })
     }
   }
 }
 
-export default setting
+export default admin

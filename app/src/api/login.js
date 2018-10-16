@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import store from "@/store";
+import store from '@/store';
 
 // 获取用户token
 export function getToken(data) {

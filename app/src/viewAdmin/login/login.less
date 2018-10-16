@@ -1,0 +1,27 @@
+@import "../../style/include/mixin";
+@bg:#2d3a4b;
+@bgImg:'../../assets/point/bg_top.png';
+@dark_gray:#889aa4;
+@title_clo:#1353f9;
+@blue: #5486e4;
+//@mixin box(@pct) { @pct*1px @pct*1px 0 rgba(17,64,204,@pct/100)}
+@box_shad:0 rgba(17,64,204,0.1);
+.login-container { .relative(); height: 100vh; background: url(@bgImg) no-repeat #195DFF center right;background-size: 299px auto;padding-top: 0.5px;
+  input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #f5f5f5 inset !important; -webkit-text-fill-color: #606266 !important; }
+  .login-form { margin: 202px auto 0 auto; width: 400px;
+    .login_box{ padding: 26px 44px 35px 44px;background: rgba(255, 255, 255,1); }
+    .title { font-size: 18px; color: @title_clo; margin: 0 auto 40px auto; text-align: center;white-space: nowrap;font-weight: normal;}
+    .el-form-item {position: relative;}
+    .el-input__inner{background: #f5f5f5;border-color: #f5f5f5;padding: 0 38px 0 48px;border-radius: 2px;}
+    &.is-success .el-input__inner{border-color: @blue;
+      &:focus{border-color: @blue;}
+    }
+  }
+  .svg-container {position: absolute;top:0;left: 0; padding: 0 5px 0 15px; color: #b3b3b3;width: 30px;
+    &_login { font-size: 20px; }
+  }
+  .show-pwd {position: absolute; right: 10px; top: 1px; font-size: 16px; color: #b3b3b3; cursor: pointer; user-select:none; }
+  .tips { font-size: 14px; color: #fff; margin-bottom: 10px; }
+  .login-button{ width: 100%;font-size: 18px; letter-spacing: 27px;text-indent: 27px; padding: 0;
+    line-height: 50px;border: 0;border-radius: 0;.box-shadow(0 0 24px rgba(19,110,218,0.41));}
+}

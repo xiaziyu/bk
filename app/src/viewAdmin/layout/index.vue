@@ -1,9 +1,9 @@
 <template>
-  <div class="app-wrapper">
-    <sidebar class="sidebar-container"/>
+  <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}" v-loading="loading" element-loading-text="正在请求中……">
+    <sidebar></sidebar>
     <div class="main-container">
-      <navbar/>
-      <app-main/>
+      <navbar></navbar>
+      <app-main></app-main>
     </div>
   </div>
 </template>
@@ -20,7 +20,10 @@
     },
     computed: {
       sidebar() {
-        return this.$store.state.app.sidebar
+        return this.$store.state.admin.sidebar
+      },
+      loading() {
+        return this.$store.state.admin.loading
       }
     }
   }

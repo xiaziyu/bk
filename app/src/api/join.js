@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import store from "@/store"
+import store from '@/store';
 
 // 用户报名
 export function subJoin(data) {

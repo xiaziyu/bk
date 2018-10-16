@@ -1,0 +1,88 @@
+// 侧边栏
+.sidebar{box-shadow: 0 0 5px 0 rgba(0,0,0,0.50);
+  .hamburger-container { position: fixed; bottom: 35px; left: 60px; color: #fff; cursor: pointer; transition: .61s;
+    .hamburger {font-size: 20px; transform: rotate(90deg); transition: .61s; color: #D8D8D8; transform-origin: 50% 50%;
+      &.is-active { color: #fff; transform: rotate(0deg); }
+    }
+  }
+}
+.sidebar-header{height: @sideHei;line-height: @sideHei; background: @sideBg;color: #fff;text-align: center;padding-top: .1px;box-sizing: border-box;font-size: 16px;white-space: nowrap;overflow: hidden;
+  .svg-icon{margin-right: 7px;font-size: 20px;vertical-align: middle;}
+}
+.hideSidebar .sidebar-header{
+  .name{display: none;}
+}
+.scroll-container { position: relative;overflow: hidden; width: 100%;  height: 100%;
+  .scroll-wrapper { position: absolute; width: 100%!important; }
+}
+.sidebar{background: url("../../assets/point/bg_top.png") @menuBg no-repeat bottom;background-size: 230px auto;}
+.sidebar-container{padding-top: (33-35/2)*1px;background: transparent;border: 0;
+  .el-menu{background: transparent;border: none;width: 100%;
+    i{color: #fff;}
+  }
+  .is-active.submenu-title-noDropdown {
+    color: #fff;
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      top: (36-22)/2px;
+      width: 3px;
+      height: 22px;
+      background: @menuTileHove;
+    }
+    .iconfont {
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 0 7px rgba(255, 255, 255, 0.53);
+    }
+  }
+  .el-submenu__title{color: @menuTile;font-size: 14px;line-height: 50px;height: 50px;padding-left: 11px!important;padding-right: 10px;
+    .el-submenu__icon-arrow{right: 10px;}
+    &:hover{color: #fff;background: transparent;}
+  }
+  .svg-icon{font-size: 18px;margin-right: 38-11-18px;margin-top: -2px;color: inherit;}
+  .el-submenu{
+    .el-menu-item{min-width: @menuBig;padding-left: 41px!important;padding-right: 25px;font-size: 12px;}
+  }
+}
+.el-menu--vertical,.sidebar-container{
+  .el-menu-item{color: @menuTxt;height: 12+24px;line-height: 12+24px;
+    &:focus,&:hover{background: transparent;color: #fff;}
+    &.is-active {
+      color: @menuActive;
+    }
+  }
+  .el-menu-item.is-disabled{cursor: pointer;opacity: 1;}
+}
+//收缩的菜单列表
+.el-menu--vertical{top:78px!important;background: @subMenuBg;height: 100%!important;box-sizing: border-box;box-shadow: 0 2px 18px -3px rgba(0,0,0,0.50);
+  .el-menu{margin: 0; width: @menuSubWid; padding-left: 20px;box-sizing:border-box;background: transparent;.box-shadow(none);padding-top: 35-12px;overflow: hidden;
+    min-width: @menuSubWid;}
+  .el-menu-item{padding-left: 10+8px!important;padding-right: 0!important; min-width: 80px!important;font-size: 12px;color: @menuVTxt;
+    &.is-active{position: relative;
+      &:before{left: 0;}
+    }
+  }
+  .el-badge{
+    .el-badge__content{right: -3px;top:13px;
+      &.is-dot{height: 8px;width: 8px;}
+    }
+  }
+}
+.hideSidebar .sidebar {
+  .svg-icon{font-size: 21px;}
+  .el-menu { width: @menuWid;}
+  .el-submenu__title { padding-left: 21px !important; }
+  .submenu-title-noDropdown{
+    > span { display: none; }
+  }
+  .el-submenu { position: relative;
+    .el-menu-item { min-width: 80px !important; }
+    & > .el-submenu__title {
+      > span {display: none; }
+      .el-submenu__icon-arrow { display: none; }
+    }
+  }
+  .hamburger-container { left: 21px; }
+}

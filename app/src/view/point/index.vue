@@ -1,4 +1,4 @@
-<style lang="less">
+<style lang="less" scoped>
   @import 'index.less';
 </style>
 <template>
@@ -110,11 +110,11 @@
         this.getDate()
       },
       getDate() {
-        getGift().then(res => {
+        getGift({pin: this.pin}).then(res => {
           this.giftList = res.data.giftList
           this.moreUrl = res.data.more
           console.log(res)
-          getTask().then(respones => {
+          getTask({pin: this.pin}).then(respones => {
             console.log(respones)
             this.taskList = respones.data
             this.isLoading = false

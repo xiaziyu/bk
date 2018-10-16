@@ -1,0 +1,29 @@
+.app-container{
+  .title-content{padding: 13px 16px;font-size: 15px;background: #fff;color: @titleTxt;border-bottom: 1px solid #E2E6E9;margin: 0;font-weight: normal;}
+  .page-header{border-bottom: 1px solid #E2E6E9;background: #fff;padding: 13px 23px;}
+
+  //筛选条件form
+  .form-filter{text-align: right;
+    .el-form-item{margin-bottom: 5px;margin-right: 5px;
+      &:last-child{margin-right: 0;margin-left: 50-18px;
+      }
+    }
+    .el-input__inner{min-width: 214px;border-radius: 2px;line-height: 35px;height: 35px;
+      &:focus +.el-input__suffix{color: #535353;}
+    }
+    .el-button{font-size: 14px;}
+  }
+
+  .container{background: #fff;margin: 15px;box-shadow:0 8px 10px 0 rgba(65,95,207,0.08);padding-bottom: 0.1px;}/*box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);*/
+
+  //表格标题
+  .table_header{text-align: right;padding: 7px 15px 8px 15px;
+    .el-button{line-height: 17px;padding: 0 10px;}
+    .svg-icon{font-size: 17px;margin-right: 5px;}
+    .table_tit{margin: 0;line-height: 20px;font-size: 14px;font-weight: normal;color: @titleTxt;}
+  }
+}
+input:-webkit-autofill { -webkit-box-shadow: 0 0 0 1000px #fff inset !important; -webkit-text-fill-color: @text !important; }
+::-webkit-scrollbar-track{background-color:#F5F5F5}
+::-webkit-scrollbar{width:6px;height: 8px; background-color:#F5F5F5;}
+::-webkit-scrollbar-thumb{background-color:#DADADA;border-radius: 7px;}

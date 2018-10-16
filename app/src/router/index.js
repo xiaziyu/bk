@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Layout from '@/viewAdmin/layout/index'
-export const _import = file => () => import('@/viewAdmin/' + file)
+// export const _import = file => () => import('@/viewAdmin/' + file)
+export const _import = file => resolve => require(['@/view/' + file + '.vue'], resolve)
+
+
 Vue.use(Router)
 
 const routes = [
@@ -13,17 +15,17 @@ const routes = [
   {
     name: 'login',
     meta: {title: '登陆'},
-    component: () => import('@/view/login')
+    component: _import('login/index')
   },
   {
     name: 'join',
     meta: {title: '报名表'},
-    component: () => import('@/view/join')
+    component: _import('join/index')
   },
   {
     name: 'point',
     meta: {title: '别克积分'},
-    component: () => import('@/view/point')
+    component: _import('point/index')
   }
 ];
 

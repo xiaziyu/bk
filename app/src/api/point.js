@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import store from "@/store"
+import store from '@/store';
 // 积分信息
 export function getPoint(data) {
   return request({
