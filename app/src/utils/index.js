@@ -7,16 +7,18 @@ export function getUrlKey(name){
  export function IsWap() {
    const userAgentInfo = navigator.userAgent.toLowerCase()
    const Agents = new Array('android', 'iphone', 'symbianos', 'windows phone', 'windows mobile', 'ipad', 'iPod', 'windows ce', 'ucweb', 'midp')
-   let flag = Agents.some(item => {
+   const flag = Agents.some(item => {
      return userAgentInfo.includes(item)
    })
    return flag
  }
  export function isOpen() {
-   const ua = navigator.userAgent.toLowerCase();
-   const ux = ua.includes('micromessenger')||ua.includes('mqqbrowser')?'WX':true?'JD':''
-   if(!store.getters.source){
-     store.dispatch('changeSource', ux)
-   }
-   return ux!==''
+   const ua = navigator.userAgent.toLowerCase()
+   const ux = ua.includes('micromessenger')||ua.includes('mqqbrowser')?'WX':ua.includes('jdpaysdk')?'JD':''
+   const isAndroid = ua.indexOf('android') > -1 || ua.indexOf('linux') > -1
+   const isiOS = !!ua.match(/\(i[^;]+;( u;)? cpu.+mac os x/)
+   const client = isAndroid?'android':isiOS?'ios':false
+   store.dispatch('changeClient', client)
+   store.dispatch('changeSource',ux)
+   return ux!==''&&client
  }

@@ -54,6 +54,7 @@
       }
     },
     created() {
+      this.form.limit = this.pagination.limit
       this.getList()
     },
     methods: {

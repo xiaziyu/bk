@@ -8,7 +8,7 @@
   import { mapGetters } from 'vuex'
   import { mapActions } from 'vuex'
   import { totFailD } from '@/utils/notice'
-  import { getPin } from '@/api/login'
+  import { getPin, getIsvToken } from '@/api/login'
 
   export default{
     name: 'login',
@@ -16,20 +16,15 @@
       ...mapGetters([
         'source',
         'token',
-        'pin'
+        'pin',
+        'client'
       ])
     },
-
     created() {
-      const token = this.$route.query['token']||''
-      if(token){
-        this.changeToken({ token } ).then(() => {
-          this.getDate()
-        })
+      if(this.source==='JD'){
+        this.jdGetToken()
       }else {
-        this.jumpUrl().then(url => {
-          location.href = url
-        })
+        this.wxGetToken()
       }
     },
     methods: {
@@ -38,6 +33,24 @@
         'changePin',
         'jumpUrl'
       ]),
+      wxGetToken(){
+        const token = this.$route.query['token']||''
+        if(token){
+          this.changeToken({ token } ).then(() => {
+            this.getDate()
+          })
+        }else {
+          this.jumpUrl().then(url => {
+            location.href = url
+          })
+        }
+      },
+      jdGetToken(){
+        alert('京东打开啦，求文档~')
+        /*getIsvToken({client: this.client}).then(res => {
+
+        })*/
+      },
       getDate() {
         const data ={token: this.token, source: this.source}
         getPin(data).then(res => {

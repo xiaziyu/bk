@@ -4,6 +4,7 @@ const setting = {
   state: {
     // api_url:'/',
     api_url:'?r=',
+    client: '',
     source: '',
     pin: getToken()||'',
     token: getPin()||''
@@ -17,6 +18,9 @@ const setting = {
     },
     SET_PIN: (state, pin) => {
       state.pin = pin
+    },
+    SET_CLIENT: (state, client) => {
+      state.client = client
     }
   },
   actions:{
@@ -37,6 +41,12 @@ const setting = {
       return new Promise((resolve) => {
         commit('SET_PIN', pin)
         setPin(pin)
+        resolve()
+      })
+    },
+    changeClient({ commit}, client){
+      return new Promise((resolve) => {
+        commit('SET_CLIENT', client)
         resolve()
       })
     },

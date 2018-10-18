@@ -38,7 +38,6 @@ service.interceptors.response.use(
         router.push({ name: 'login' })
       }
       const text = res['msg']?res['msg']:'返回异常，请稍候重试'
-      console.log(response.config.url+'返回异常')
       megError(text)
       return Promise.reject('error')
     }

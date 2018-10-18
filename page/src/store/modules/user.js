@@ -15,14 +15,17 @@ const user = {
       return new Promise((resolve, reject) => {
         loginByUsername(userInfo).then(response => {
           const data = response.data
-          setName(data.name)
-          commit('SET_NAME', data.name)
+          setName(data.uname)
+          commit('SET_NAME', data.uname)
           resolve()
         }).catch(error => {
           console.log('用户名登录有误')
           reject(error)
         })
-      }).catch(error=>console.log(error))
+      }).catch(error=>{
+        console.log(error)
+        reject(error)
+      })
     },
     // 登出
     LogOut({ commit }) {
@@ -34,6 +37,9 @@ const user = {
         }).catch(error => {
           reject(error)
         })
+      }).catch(error=>{
+        console.log(error)
+        reject(error)
       })
     },
     // 前端 登出

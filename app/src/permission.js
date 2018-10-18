@@ -1,12 +1,12 @@
 import { router } from '@/router/index';
 import store from './store'
-import { isOpen } from '@/utils/index'
+import { IsWap, isOpen } from '@/utils/index'
 import { totFailD } from '@/utils/notice'
 
 const whiteList = ['login']
 
 router.beforeEach((to, from, next) => {
-  if(isOpen()){
+  if(IsWap()&&isOpen()){
     if(whiteList.includes(to.name)){
       next()
     }else {
@@ -21,6 +21,6 @@ router.beforeEach((to, from, next) => {
       }
     }
   }else {
-    totFailD('请在微信或京东中打开')
+    totFailD('请在微信或京东金融中打开')
   }
 });

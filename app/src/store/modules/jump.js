@@ -7,6 +7,11 @@ const setting = {
       // jd_url: 'https://oauth.jd.com/oauth/authorize?response_type=code&state=jdbk',
       jd_url: 'https://wq.jd.com/pinbind/pintokenredirect?biz=jdxyst'
       //key: 'D2BF35C3E4CAC36C464BCF810C676123'
+    },
+    jdToken_url: {
+      back_url: redirectUrl,
+      jd_url: 'https://wq.jd.com/pinbind/pintokenredirect?biz=jdxyst',
+      Appkey: 'FA93E2421B9D5406EB0913E8DA0F0CC0'
     }
   },
   mutations: {
@@ -16,6 +21,13 @@ const setting = {
   },
   actions:{
     jumpUrl({ commit, state }) {
+      return new Promise((resolve) => {
+        const [jd_url, back_url] = [state['login_url']['jd_url'], state['login_url']['back_url']]
+        let url = jd_url+'&url='+back_url
+        resolve(url)
+      })
+    },
+    jdTokenUrl({ commit, state }){
       return new Promise((resolve) => {
         const [jd_url, back_url] = [state['login_url']['jd_url'], state['login_url']['back_url']]
         let url = jd_url+'&url='+back_url

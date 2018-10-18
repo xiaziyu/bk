@@ -8,14 +8,14 @@
     <el-form class="card-box login-form" autoComplete="on" size="medium" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
       <div class="login_box">
         <h3 class="title">欢迎使用 别克青春俱乐部后台管理系统</h3>
-        <el-form-item prop="user_name">
-          <el-input name="user_name" type="text" @keyup.enter.native="handleLogin" v-model="loginForm.user_name" autoComplete="on" placeholder="管理员" maxlength="50"/>
+        <el-form-item prop="uname">
+          <el-input name="uname" type="text" @keyup.enter.native="handleLogin" v-model="loginForm.uname" autoComplete="on" placeholder="管理员" maxlength="50"/>
           <span class="svg-container svg-container_login">
             <svg-icon icon-class="i-user" />
           </span>
         </el-form-item>
-        <el-form-item class="forget-item" prop="password">
-          <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on" maxlength="30" placeholder="密码" />
+        <el-form-item class="forget-item" prop="pwd">
+          <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.pwd" autoComplete="on" maxlength="30" placeholder="密码" />
           <span class="svg-container">
             <svg-icon icon-class="i-password" />
           </span>
@@ -30,20 +30,12 @@
 
 <script>
   import { mapActions } from 'vuex'
-  import { validateEmail } from '@/utils/validate'
   import { megError, megSuc } from '@/utils/notice'
   import { getForget } from '@/api/login'
 
   export default {
     name: 'login',
     data() {
-      const validateUsername = (rule, value, callback) => {
-        if (!validateEmail(value)) {
-          callback(new Error('请输入正确的邮箱地址'))
-        } else {
-          callback()
-        }
-      }
       const validatePassword = (rule, value, callback) => {
         if (value.length < 6) {
           callback(new Error('密码不能小于6位'))
@@ -53,12 +45,14 @@
       }
       return {
         loginForm: {
-          user_name: '',
-          password: ''
+          uname: '',
+          pwd: ''
         },
         loginRules: {
-          user_name: [{ required: true, trigger: 'blur', validator: validateUsername }],
-          password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+          uname: [
+            {required: true, message: '管理员不能为空', trigger: 'change'}
+            ],
+          pwd: [{ required: true, trigger: 'blur', validator: validatePassword }]
         },
         pwdType: 'password',
         pwdIcon: 'closed',
@@ -67,7 +61,7 @@
     },
     methods: {
       ...mapActions([
-        'toggleLoad'
+        'LoginByUsername'
       ]),
       showPwd() {
         if (this.pwdType === 'password') {
@@ -83,11 +77,11 @@
           if (valid) {
             this.loadBtn = true
             const data = {
-              user_name: this.loginForm.user_name,
-              password: this.loginForm.password
-              //password: this.loginForm.password
+              uname: this.loginForm.uname,
+              pwd: this.loginForm.pwd
+              //pwd: this.loginForm.pwd
             }
-            this.$store.dispatch('LoginByUsername', data).then(() => {
+            this.LoginByUsername(data).then(() => {
               this.loadBtn = false
               this.$router.push({ name: 'pointUser' })
             }).catch(() => {
@@ -95,7 +89,7 @@
               this.loadBtn = false
             })
           } else {
-            console.log('error submit!!')
+            console.log('表单验证有误!!')
             return false
           }
         })

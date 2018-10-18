@@ -3,7 +3,7 @@
     <div class="page-header">
       <el-form class="form-filter" :inline="true" :model="form"  ref="form">
         <el-form-item>
-          <el-input v-model="form.key" placeholder="搜索关键字"></el-input>
+          <el-input v-model="form.keyword" placeholder="搜索关键字"></el-input>
         </el-form-item>
         <el-button type="primary" @click="onSearch()">搜索</el-button>
         <!--<el-button type="text" icon="el-icon-search" @click="onSearch()"></el-button>-->
@@ -17,19 +17,20 @@
       </listTitle>
       <el-table ref="multipleTable" :data="tableData" empty-text="抱歉，暂无相关数据" border style="width: 100%" size="medium">
         <el-table-column label="编号" type="index" width="50"></el-table-column>
-        <el-table-column prop="code" label="姓名" min-width="100"></el-table-column>
-        <el-table-column prop="company_code" label="手机" class-name="overflow" min-width="133"></el-table-column>
-        <el-table-column prop="company_name" label="邮箱" min-width="133"></el-table-column>
-        <el-table-column prop="category_name" label="当前积分" min-width="130"></el-table-column>
+        <el-table-column prop="user_name" label="姓名" min-width="100"></el-table-column>
+        <el-table-column prop="phone_num" label="手机" class-name="overflow" min-width="133"></el-table-column>
+        <el-table-column prop="email" label="邮箱" min-width="133"></el-table-column>
+        <el-table-column prop="total_point" label="当前积分" min-width="130"></el-table-column>
         <el-table-column label="操作" min-width="65" fixed="right">
           <template slot-scope="scope">
-            <el-button type="text" :disabled="scope.row['is_used']==='USED'||scope.row['status']==='DELETED'" icon="el-icon-circle-close-outline" @click="handleEdit(scope.row)"></el-button>
+            <el-button type="text" icon="el-icon-edit-outline" @click="handleEdit(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
       <!--页码-->
       <Pagination ref="Pagination" :current="form.current" :limit="form.limit" :total="form.total" @on-current-change="pageCurrentChange"></Pagination>
     </div>
+    <userEdit ref="userEdit"></userEdit>
   </div>
 </template>
 
@@ -40,10 +41,11 @@
   import { getList } from '@/api/point'
   import listTitle from '@/components/listTitle'
   import Pagination from '@/components/Pagination'
+  import userEdit from './components/userEdit'
 
   export default{
     name: 'pointUser',
-    components: { Pagination, listTitle },
+    components: { Pagination, listTitle, userEdit },
     computed: {
       ...mapGetters([
         'pagination',
@@ -56,27 +58,25 @@
           current: 1,
           limit: 25,
           total: 0,
-          key: ''
+          keyword: ''
         },
-        exportLoad: false,
-        tableData: [],
-        multipleSelection: []
+        tableData: []
       }
     },
     created() {
+      this.form.limit = this.pagination.limit
       this.getList()
     },
     methods: {
       ...mapActions([
         'toggleLoad'
       ]),
-      test(){
-        this.$router.push({name:'logsHandle'})
-      },
       getList() {
         this.toggleLoad(true)
-        const data ={}
+        const data ={ ...this.form }
         getList(data).then(res => {
+          this.tableData = res.data.list
+          this.form.total = Number(res.data.count)
           this.toggleLoad(false)
           console.log(res)
         }).catch(()=> {
