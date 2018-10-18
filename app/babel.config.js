@@ -5,14 +5,6 @@ module.exports = {
       'import',
       { libraryName: 'vant', libraryDirectory: 'es', style: true },
       'vant'
-    ],
-    [
-      "component",
-      {
-        "libraryName": "element-ui",
-        "styleLibraryName": "theme-chalk"
-      },
-      'element-ui'
     ]
   ]
 };

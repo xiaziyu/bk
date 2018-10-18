@@ -1,24 +1,16 @@
 module.exports = {
-  baseUrl: process.env.NODE_ENV === 'production' ? '/' : '/',
-  outputDir: '../public',
-  lintOnSave: true,
+  baseUrl: process.env.NODE_ENV === 'production' ? '/h5/' : '/',
+  outputDir: '../h5',
+  lintOnSave: false,
   productionSourceMap: false,
   pages: {
     index: {
       entry: 'src/main.js',
       // the source template
-      template: 'public/index.html',
+      template: 'template/index.html',
       // output as dist/index.html
       filename: 'index.html',
       chunks: ['chunk-libs', 'chunk-common', 'index', 'chunk-vant']
-    },
-    admin: {
-      entry: 'src/admin.js',
-      // the source template
-      template: 'public/admin.html',
-      // output as dist/index.html
-      filename: 'admin.html',
-      chunks: ['chunk-libs', 'chunk-common', 'admin', 'chunk-elementUI']
     }
   },
   configureWebpack: config => {
@@ -32,11 +24,6 @@ module.exports = {
               test: /[\\/]node_modules[\\/]/,
               priority: 10,
               chunks: 'initial' // 只打包初始时依赖的第三方
-            },
-            elementUI: {
-              name: 'chunk-elementUI', // 单独将 elementUI 拆包
-              priority: 20, // 权重要大于 libs 和 app 不然会被打包进 libs 或者 app
-              test: /[\\/]node_modules[\\/]element-ui[\\/]/
             },
             vant: {
               name: 'chunk-vant', // 单独将 vant 拆包

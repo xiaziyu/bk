@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// export const _import = file => () => import('@/viewAdmin/' + file)
+// export const _import = file => () => import('@/view/' + file)
 export const _import = file => resolve => require(['@/view/' + file + '.vue'], resolve)
 
 

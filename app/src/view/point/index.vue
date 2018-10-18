@@ -10,9 +10,9 @@
       <div class="avatar_info">
         <p class="name" v-text="userInfo.user_name"></p>
         <p>当前积分：{{userInfo.jd_point}}</p>
-        <p>别克汇积分：<button v-if="btnIsShow" @click="handleJoin()" class="join_btn">加入</button><span v-else>{{userInfo.buick_point}}</span></p>
+        <p>别客汇积分：<button v-if="btnIsShow" @click="handleJoin()" class="join_btn">加入</button><span v-else>{{userInfo.buick_point}}</span></p>
       </div>
-      <button class="inter_btn" @click="interSub()">积分互</button>
+      <button class="inter_btn" @click="interSub()">积分互通</button>
     </div>
     <div class="giftBox">
       <h1 class="title">热门礼品
@@ -46,7 +46,7 @@
   import errorMap from '@/assets/icon/rect.svg'
   import bitmap from '@/assets/point/bitmap.png'
   import { mapGetters } from 'vuex'
-  import { mapActions } from 'vuex'
+  //import { mapActions } from 'vuex'
   import { Lazyload, PullRefresh } from 'vant'
   import { totFailD, totText, totSucD } from '@/utils/notice'
   import { getPoint, changePoint, getGift, getTask } from '@/api/point'
@@ -90,12 +90,9 @@
       this.getUsers()
     },
     methods: {
-      ...mapActions([
-        'usersUrl'
-      ]),
       getUsers(){
         getPoint({pin: this.pin}).then(res => {
-          console.log(res)
+          this.getDate()
           this.userInfo = {
             icon: res.data.icon||'',
             user_name: res.data.user_name||'--',
@@ -107,15 +104,12 @@
         }).catch(()=> {
           this.isLoading = false
         })
-        this.getDate()
       },
       getDate() {
         getGift({pin: this.pin}).then(res => {
           this.giftList = res.data.giftList
           this.moreUrl = res.data.more
-          console.log(res)
           getTask({pin: this.pin}).then(respones => {
-            console.log(respones)
             this.taskList = respones.data
             this.isLoading = false
             this.$toast.clear()

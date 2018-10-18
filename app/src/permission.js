@@ -10,31 +10,16 @@ router.beforeEach((to, from, next) => {
     if(whiteList.includes(to.name)){
       next()
     }else {
-      // if(store.getters.token){
+      if(store.getters.token&&store.getters.pin){
         const title = to.meta && to.meta.title
         if (title) {
           document.title = title
         }
         next()
-      // }else {
-      //   next({ name: 'login' })
-      // }
-    }
-    /*if(to.name==='login'){
-      const token = to.query['token']
-      if(token){
-        // alert(to)
-        store.dispatch('setCode',{token} ).then(() => {
-          page_next(to, next)
-        })
       }else {
-        store.dispatch('jumpUrl').then(url => {
-          location.href = url
-        })
+        next({ name: 'login' })
       }
-    }else {
-      page_next(to, next)
-    }*/
+    }
   }else {
     totFailD('请在微信或京东中打开')
   }

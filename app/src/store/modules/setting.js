@@ -39,6 +39,16 @@ const setting = {
         setPin(pin)
         resolve()
       })
+    },
+    // 前端 登出
+    FedLogOut({ commit }) {
+      return new Promise(resolve => {
+        commit('SET_TOKEN', '')
+        commit('SET_PIN', '')
+        removeToken()
+        removePin()
+        resolve()
+      })
     }
   }
 }

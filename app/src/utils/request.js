@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { totFail } from '@/utils/notice'
-import router from '@/router/admin'
+import { router } from '@/router/index';
 import qs from 'qs'
 
 // 创建axios实例
@@ -28,16 +28,17 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     /**
-     * code为非200是抛错
+     * res为非200是抛错
      */
     const res = response.data
     if (res['ret']&&Number(res['ret']) === 200){
       return response.data
     }else {
-      if (Number(res['ret']) === 555) {
+      if(Number(res['ret']) === 555){
         router.push({ name: 'login' })
       }
-      const text = res['msg']?res['msg']+'['+res['ret']+']':'返回异常，请稍候重试'+response.config.url
+      const text = res['msg']?res['msg']:'返回异常，请稍候重试'
+      console.log(response.config.url+'返回异常')
       totFail(text)
       //alert(response.config.url+JSON.stringify(res))
       return Promise.reject('error')
