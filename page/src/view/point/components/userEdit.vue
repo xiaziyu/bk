@@ -1,31 +1,19 @@
 <template>
-  <el-dialog :visible.sync="dialogView"  :width="table.medWid" custom-class="maxDialog"  :close-on-click-modal="false" v-loading="dialogLoad">
-    <span slot="title"><svg-icon icon-class="title"/>确认委托应付信息</span>
+  <el-dialog :visible.sync="dialogView"  :width="dialog.medWid" custom-class="maxDialog"  :close-on-click-modal="false" v-loading="dialogLoad">
+    <dialogTitle slot="title" :title="编辑用户"></dialogTitle>
     <el-form :model="viewForm" ref="viewForm" :rules="viewRules" label-width="95px" label-position="left">
-      <el-row>
-        <el-col :span="12" class="pr-8">
-          <el-form-item label="委托应付单号:" prop="out_delegate_payable_bill_no">
-            <el-input v-model="viewForm.out_delegate_payable_bill_no" placeholder="委托应付单号" maxlength="20"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12" class="pl-8">
-          <el-form-item label="委托应付总额:">
-            <span v-text="viewForm.sum_amount"></span>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12" class="pr-8">
-          <el-form-item label="供应商名称:">
-            <p class="overflow" v-text="viewForm.vendor_name"></p>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12" class="pl-8">
-          <el-form-item label="成品供应商名称:">
-            <p class="overflow" v-text="viewForm.module_name"></p>
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <el-form-item label="姓名:" prop="user_name">
+        <el-input v-model="viewForm.user_name" placeholder="姓名" maxlength="30"></el-input>
+      </el-form-item>
+      <el-form-item label="手机:" prop="phone_num">
+        <el-input v-model="viewForm.phone_num" placeholder="手机" maxlength="30"></el-input>
+      </el-form-item>
+      <el-form-item label="邮箱:" prop="email">
+        <el-input v-model="viewForm.email" placeholder="邮箱" maxlength="30"></el-input>
+      </el-form-item>
+      <el-form-item label="当前积分:" prop="total_point">
+        <el-input v-model="viewForm.total_point" placeholder="当前积分" maxlength="10"></el-input>
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogView = false">取消</el-button>
@@ -39,15 +27,15 @@
   import { mapActions } from 'vuex'
   import { megError, megSuc } from '@/utils/notice'
   import { userEdit } from '@/api/point'
+  import dialogTitle from '@/components/dialogTitle'
 
   export default{
     name: 'userEdit',
-    //components: { Pagination, listTitle, userEdit },
+    components: { dialogTitle },
     computed: {
       ...mapGetters([
-        'pagination',
         'loading',
-        'table'
+        'dialog'
       ])
     },
     data() {
@@ -55,15 +43,19 @@
         dialogView: false,
         dialogLoad: false,
         viewForm:{
-          out_delegate_payable_bill_no: '',//用户填写
-          sum_amount:'',
-          vendor_name: '',
-          module_name: '',
-          tableList: []
+          user_name: '',//用户填写
+          phone_num:'',
+          email: '',
+          total_point: ''
         },
         viewRules: {
-          out_delegate_payable_bill_no: [{ required: true, message: '请输入委托应付单号', trigger: 'blur'}]
-          //payment_expire_time: [{ required: true, message: '请选择委托应付款到期日', trigger: 'blur'}]
+          user_name: [{ required: true, message: '请输入姓名', trigger: 'blur'}],
+          phone_num: [{ required: true, message: '请输入手机号码', trigger: 'blur'}],
+          email: [
+            { required: true, message: '请输入邮箱地址', trigger: 'blur'},
+            { required: true, message: '请输入邮箱地址', trigger: 'blur'}
+          ],
+          total_point: [{ required: true, message: '请输入用户积分', trigger: 'blur'}]
         }
       }
     },

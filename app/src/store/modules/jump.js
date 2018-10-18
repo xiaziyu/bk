@@ -8,15 +8,15 @@ const setting = {
       jd_url: 'https://wq.jd.com/pinbind/pintokenredirect?biz=jdxyst'
       //key: 'D2BF35C3E4CAC36C464BCF810C676123'
     },
+    jdCode_url: {
+      back_url: redirectUrl,
+      jd_url: 'https://oauth.jd.com/oauth/authorize?response_type=code&state=jdbk&view=wap',
+      key: 'D2BF35C3E4CAC36C464BCF810C676123'
+    },
     jdToken_url: {
       back_url: redirectUrl,
       jd_url: 'https://wq.jd.com/pinbind/pintokenredirect?biz=jdxyst',
       Appkey: 'FA93E2421B9D5406EB0913E8DA0F0CC0'
-    }
-  },
-  mutations: {
-    SET_PIN: (state, pin) => {
-      state.pin = pin
     }
   },
   actions:{
@@ -24,6 +24,14 @@ const setting = {
       return new Promise((resolve) => {
         const [jd_url, back_url] = [state['login_url']['jd_url'], state['login_url']['back_url']]
         let url = jd_url+'&url='+back_url
+        resolve(url)
+      })
+    },
+    jdCodeUrl({ commit, state }){
+      return new Promise((resolve) => {
+        const jd = state['jdCode_url']
+        const [jd_url, back_url, key] = [jd['jd_url'], jd['back_url'], jd['key']]
+        let url = jd_url+'&redirect_uri='+back_url+'&client_id='+key
         resolve(url)
       })
     },

@@ -14,7 +14,8 @@ export function getUrlKey(name){
  }
  export function isOpen() {
    const ua = navigator.userAgent.toLowerCase()
-   const ux = ua.includes('micromessenger')||ua.includes('mqqbrowser')?'WX':ua.includes('jdpaysdk')?'JD':''
+   const isWeixin = ua.includes('micromessenger')
+   const ux = isWeixin?'WX':'JD'
    const isAndroid = ua.indexOf('android') > -1 || ua.indexOf('linux') > -1
    const isiOS = !!ua.match(/\(i[^;]+;( u;)? cpu.+mac os x/)
    const client = isAndroid?'android':isiOS?'ios':false

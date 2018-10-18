@@ -31,7 +31,8 @@
       ...mapActions([
         'changeToken',
         'changePin',
-        'jumpUrl'
+        'jumpUrl',
+        'jdCodeUrl'
       ]),
       wxGetToken(){
         const token = this.$route.query['token']||''
@@ -46,13 +47,22 @@
         }
       },
       jdGetToken(){
-        alert('京东打开啦，求文档~')
-        /*getIsvToken({client: this.client}).then(res => {
-
-        })*/
+        const [code, state] = [this.$route.query['code']||'', this.$route.query['state']||'']
+        alert(code)
+        alert(state)
+        if(code&&state){
+          getIsvToken({ code, state}).then(res => {
+            alert(JSON.stringify(res))
+          })
+        }else {
+          this.jdCodeUrl().then(url => {
+            location.href = url
+          })
+        }
       },
       getDate() {
         const data ={token: this.token, source: this.source}
+        alert(JSON.stringify(data))
         getPin(data).then(res => {
           this.changePin(res.data.pin)
           if(res.data.status==='1'){

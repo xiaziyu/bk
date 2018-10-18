@@ -1,5 +1,5 @@
 
-<style lang="less" scoped>
+<style lang="less">
   @import 'login.less';
 </style>
 

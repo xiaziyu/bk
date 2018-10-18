@@ -8,7 +8,7 @@ const setting = {
       tableMax: 590,
       layout: 'total, prev, pager, next'
     },
-    table: {
+    dialog: {
       medWid: 500
     }
   }

@@ -1,17 +1,12 @@
 <template>
-  <!--表格title-->
-  <div class="table_header clearfix">
-    <h3 class="table_tit fl">{{title}}</h3>
-    <el-button-group class="fr">
-      <slot></slot>
-    </el-button-group>
-  </div>
+  <!--弹窗title-->
+  <span>{{title}}<slot></slot></span>
 </template>
 
 <script>
 
   export default {
-    name: 'listTitle',
+    name: 'dialogTitle',
     props: {
       title: {
         type: String,
