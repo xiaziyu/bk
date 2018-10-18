@@ -80,6 +80,8 @@
           this.toggleLoad(false)
           console.log(res)
         }).catch(()=> {
+          this.tableData = []
+          this.form.total = 0
           this.toggleLoad(false)
         })
       },

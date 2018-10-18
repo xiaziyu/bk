@@ -1,24 +1,12 @@
 <template>
   <div class="app-container">
-    <!--<div class="page-header">
-      <el-form class="form-filter" :inline="true" :model="form"  ref="form">
-        <el-form-item>
-          <el-input v-model="form.key" placeholder="搜索关键字"></el-input>
-        </el-form-item>
-        <el-button type="primary" @click="onSearch()">搜索</el-button>
-        &lt;!&ndash;<el-button type="text" icon="el-icon-search" @click="onSearch()"></el-button>&ndash;&gt;
-        <el-form-item>
-          &lt;!&ndash;<el-button type="primary" @click="handlesInfo()">操作历史</el-button>&ndash;&gt;
-        </el-form-item>
-      </el-form>
-    </div>-->
     <div class="container">
       <listTitle :title="'操作历史信息'">
       </listTitle>
       <el-table ref="multipleTable" :data="tableData" empty-text="抱歉，暂无相关数据" border style="width: 100%" size="medium">
         <el-table-column label="编号" type="index" width="60"></el-table-column>
-        <el-table-column prop="code" label="时间" min-width="100"></el-table-column>
-        <el-table-column prop="company_code" label="操作" class-name="overflow" min-width="133"></el-table-column>
+        <el-table-column prop="log_time" label="时间" min-width="100"></el-table-column>
+        <el-table-column prop="action_name" label="操作" class-name="overflow" min-width="133"></el-table-column>
       </el-table>
       <!--页码-->
       <Pagination ref="Pagination" :current="form.current" :limit="form.limit" :total="form.total" @on-current-change="pageCurrentChange"></Pagination>
@@ -66,11 +54,15 @@
       },
       getList() {
         this.toggleLoad(true)
-        const data ={}
+        const data ={...this.form}
         getList(data).then(res => {
+          this.form.total = Number(res.data.count)
+          this.tableData = res.data.list
           this.toggleLoad(false)
           console.log(res)
         }).catch(()=> {
+          this.tableData = []
+          this.form.total = 0
           this.toggleLoad(false)
         })
       },
