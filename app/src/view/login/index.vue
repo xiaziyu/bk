@@ -61,7 +61,6 @@
       },
       getDate() {
         const data ={token: this.token, source: this.source}
-        alert(JSON.stringify(data))
         getPin(data).then(res => {
           this.changePin(res.data.pin)
           if(res.data.status==='1'){
