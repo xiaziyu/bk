@@ -6,7 +6,7 @@
       <el-table ref="multipleTable" :data="tableData" empty-text="抱歉，暂无相关数据" border style="width: 100%" size="medium">
         <el-table-column label="编号" type="index" width="60"></el-table-column>
         <el-table-column prop="log_time" label="时间" min-width="100"></el-table-column>
-        <el-table-column prop="action_name" label="操作" class-name="overflow" min-width="133"></el-table-column>
+        <el-table-column prop="remark" label="操作" class-name="overflow" min-width="133"></el-table-column>
       </el-table>
       <!--页码-->
       <Pagination ref="Pagination" :current="form.current" :limit="form.limit" :total="form.total" @on-current-change="pageCurrentChange"></Pagination>
@@ -59,7 +59,6 @@
           this.form.total = Number(res.data.count)
           this.tableData = res.data.list
           this.toggleLoad(false)
-          console.log(res)
         }).catch(()=> {
           this.tableData = []
           this.form.total = 0

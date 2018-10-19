@@ -48,7 +48,7 @@
   import { mapGetters } from 'vuex'
   //import { mapActions } from 'vuex'
   import { Lazyload, PullRefresh } from 'vant'
-  import { totFailD, totText, totSucD } from '@/utils/notice'
+  import { totFailD, totText, totSuc, allLoad } from '@/utils/notice'
   import { getPoint, changePoint, getGift, getTask } from '@/api/point'
 
   Vue.use(Lazyload, {
@@ -91,6 +91,7 @@
     },
     methods: {
       getUsers(){
+        allLoad()
         getPoint({pin: this.pin}).then(res => {
           this.getDate()
           this.userInfo = {
@@ -123,9 +124,13 @@
       interSub(){
         if(!this.btnIsShow){
           if(this.userInfo.jd_point&&Number(this.userInfo.jd_point)>0){
+            allLoad()
             changePoint({pin: this.pin}).then(res => {
-              totSucD('兑换成功')
+              this.$toast.clear()
+              totSuc('兑换成功')
               this.getUsers()
+            }).catch(()=> {
+              this.$toast.clear()
             })
           }else {
             totText('您的京东积分不足！')

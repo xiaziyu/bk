@@ -34,3 +34,11 @@ export function totSucD(text) {
     message: text
   })
 }
+export function allLoad() {
+  Vue.prototype.$toast.loading({
+    duration: 0,
+    forbidClick: true,
+    mask: true,
+    message: '加载中...'
+  })
+}

@@ -30,7 +30,7 @@
       <!--页码-->
       <Pagination ref="Pagination" :current="form.current" :limit="form.limit" :total="form.total" @on-current-change="pageCurrentChange"></Pagination>
     </div>
-    <userEdit ref="userEdit"></userEdit>
+    <userEdit ref="userEdit" @on-edit-submit="getList"></userEdit>
   </div>
 </template>
 
@@ -78,7 +78,6 @@
           this.tableData = res.data.list
           this.form.total = Number(res.data.count)
           this.toggleLoad(false)
-          console.log(res)
         }).catch(()=> {
           this.tableData = []
           this.form.total = 0
@@ -93,7 +92,7 @@
         }
       },
       handleEdit(row){
-
+        this.$refs.userEdit.getInfo(row)
       },
       pageCurrentChange(val) {
         this.form.current = val

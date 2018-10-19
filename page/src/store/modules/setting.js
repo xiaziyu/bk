@@ -6,10 +6,10 @@ const setting = {
     pagination: {
       limit: 15,
       tableMax: 590,
-      layout: 'total, prev, pager, next'
+      layout: 'prev, pager, next'
     },
     dialog: {
-      medWid: 500
+      medWid: '500px'
     }
   }
 }

@@ -16,8 +16,7 @@
       ...mapGetters([
         'source',
         'token',
-        'pin',
-        'client'
+        'pin'
       ])
     },
     created() {

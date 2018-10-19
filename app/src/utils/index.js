@@ -19,7 +19,7 @@ export function getUrlKey(name){
    const isAndroid = ua.indexOf('android') > -1 || ua.indexOf('linux') > -1
    const isiOS = !!ua.match(/\(i[^;]+;( u;)? cpu.+mac os x/)
    const client = isAndroid?'android':isiOS?'ios':false
-   store.dispatch('changeClient', client)
+   // store.dispatch('changeClient', client)
    store.dispatch('changeSource',ux)
    return ux!==''&&client
  }
