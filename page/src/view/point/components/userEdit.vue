@@ -18,7 +18,7 @@
         <el-input v-model="viewForm.point" placeholder="积分增量为负数时扣减积分" maxlength="10"></el-input>
       </el-form-item>
       <el-form-item label="备注:" prop="remark">
-        <el-input type="textarea" :rows="2" v-model="viewForm.remark" placeholder="备注" maxlength="10"></el-input>
+        <el-input type="textarea" :rows="2" v-model="viewForm.remark" placeholder="操作备注(操作积分请输入积分操作备注)" maxlength="10"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -70,6 +70,14 @@
           callback()
         }
       }
+      const ruleRemark = (rule, value, callback) => {
+        const point = this.viewForm.point.toString()
+        if (point!==''&&point!=='0'&&value==='') {
+          callback(new Error('请输入操作积分备注'))
+        } else {
+          callback()
+        }
+      }
       return {
         dialogView: false,
         dialogLoad: false,
@@ -93,7 +101,7 @@
           point: [
             { required: false, trigger: 'blur', validator: rulePoint}
           ],
-          remark: [{ required: true, message: '请输入操作备注', trigger: 'blur'}]
+          remark: [{ required: false, validator: ruleRemark, trigger: 'blur'}]
         }
       }
     },
