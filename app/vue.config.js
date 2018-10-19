@@ -1,6 +1,6 @@
 module.exports = {
   baseUrl: process.env.NODE_ENV === 'production' ? '/h5/' : '/',
-  outputDir: '../h5',
+  outputDir: '../public/h5',
   lintOnSave: false,
   productionSourceMap: false,
   pages: {
