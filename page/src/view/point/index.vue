@@ -3,7 +3,7 @@
     <div class="page-header">
       <el-form class="form-filter" :inline="true" :model="form"  ref="form">
         <el-form-item>
-          <el-input v-model="form.keyword" placeholder="搜索关键字"></el-input>
+          <el-input v-model="form.keyword" clearable placeholder="搜索关键字:姓名、手机、邮箱"></el-input>
         </el-form-item>
         <el-button type="primary" @click="onSearch()">搜索</el-button>
         <!--<el-button type="text" icon="el-icon-search" @click="onSearch()"></el-button>-->
