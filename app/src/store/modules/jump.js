@@ -1,5 +1,6 @@
 
-const redirectUrl = 'https://buicktest.g100.org.cn'
+// const redirectUrl = 'https://buicktest.g100.org.cn'
+const redirectUrl = 'https://'+location.hostname
 const setting = {
   state: {
     login_url: {
