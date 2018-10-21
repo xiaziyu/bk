@@ -15,7 +15,7 @@
       <button class="inter_btn" @click="interSub()">积分互通</button>
     </div>
     <div class="giftBox">
-      <h1 class="title">热门礼品
+      <h1 class="title">别克积分商城
         <a :href="moreUrl" class="icon icon-arrow-right gift_more">更多</a>
       </h1>
       <ul class="gift_list">
