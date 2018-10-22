@@ -49,9 +49,6 @@
       ...mapActions([
         'toggleLoad'
       ]),
-      test(){
-        this.$router.push({name:'logsHandle'})
-      },
       getList() {
         this.toggleLoad(true)
         const data ={...this.form}

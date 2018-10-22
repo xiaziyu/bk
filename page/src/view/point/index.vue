@@ -5,11 +5,7 @@
         <el-form-item>
           <el-input v-model="form.keyword" clearable placeholder="搜索关键字:姓名、手机、邮箱"></el-input>
         </el-form-item>
-        <el-button type="primary" @click="onSearch()">搜索</el-button>
-        <!--<el-button type="text" icon="el-icon-search" @click="onSearch()"></el-button>-->
-        <el-form-item>
-          <!--<el-button type="primary" @click="handlesInfo()">操作历史</el-button>-->
-        </el-form-item>
+        <el-button type="primary" @click.native="onSearch()">搜索</el-button>
       </el-form>
     </div>
     <div class="container">
@@ -85,11 +81,8 @@
         })
       },
       onSearch() {
-        if (this.form.current === 1) {
-          this.getList()
-        } else {
-          this.form.current = 1
-        }
+        this.form.current = 1
+        this.getList()
       },
       handleEdit(row){
         this.$refs.userEdit.getInfo(row)
