@@ -52,11 +52,20 @@
         if(code&&state){
           getIsvToken({ code, state}).then(res => {
             alert(JSON.stringify(res))
+            if(res.data){
+              this.changeToken({ token: res.data } ).then(() => {
+                this.getDate()
+              })
+            }
           })
         }else {
-          this.jdCodeUrl().then(url => {
-            location.href = url
-          })
+          if(this.$route.query['error']&&this.$route.query['error']==='access_denied'){
+            totFailD('您已拒绝授权登录')
+          }else {
+            this.jdCodeUrl().then(url => {
+              location.href = url
+            })
+          }
         }
       },
       getDate() {

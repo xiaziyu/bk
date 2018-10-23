@@ -5,6 +5,7 @@ import store from '@/store';
 export function getPin(data) {
   return request({
     url: store.getters.api_url+'App/Auth/getPin',
+    isfull: true,
     method: 'post',
     data
   })
@@ -13,6 +14,7 @@ export function getPin(data) {
 export function getIsvToken(data) {
   return request({
     url: store.getters.api_url+'App/Auth/getISVToken',
+    isfull: true,
     method: 'post',
     data
   })

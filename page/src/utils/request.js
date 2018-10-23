@@ -30,6 +30,7 @@ service.interceptors.response.use(
     /**
      * ret为非200是抛错
      */
+    console.log(response)
     const res = response.data
     if (res['ret']&&Number(res['ret']) === 200){
       return response.data

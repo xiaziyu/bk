@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { totFail } from '@/utils/notice'
+import { totFail, totFailD } from '@/utils/notice'
 import { router } from '@/router/index';
 import qs from 'qs'
 
@@ -39,9 +39,13 @@ service.interceptors.response.use(
       }
       const text = res['msg']?res['msg']:'返回异常，请稍候重试'
       console.log(response.config.url+'返回异常')
-      totFail(text)
+      if(response.config.isfull){
+        totFailD(text)
+      }else {
+        totFail(text)
+      }
       //alert(response.config.url+JSON.stringify(res))
-      return Promise.reject('error')
+      return Promise.reject(res)
     }
   },
   error => {
