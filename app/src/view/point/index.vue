@@ -16,7 +16,7 @@
     </div>
     <div class="giftBox">
       <h1 class="title">别克积分商城
-        <a :href="moreUrl" class="icon icon-arrow-right gift_more">更多</a>
+        <a @click="handleGift(moreUrl)" class="icon icon-arrow-right gift_more">更多</a>
       </h1>
       <ul class="gift_list">
         <li class="gift_img" v-for="(item, i) in giftList" @click="handleGift(item.url)"><img v-lazy="item.img_url"/></li>
@@ -67,7 +67,8 @@
       ...mapGetters([
         'source',
         'token',
-        'pin'
+        'pin',
+        'client'
       ])
     },
     data() {
@@ -145,10 +146,33 @@
         }
       },
       handleGift(url){
-        if(url){
+        if(this.btnIsShow){
           location.href = url
+        }else {
+          location.href = 'http://m.buick.com.cn/app.html'
         }
       },
+      /*startApp(){
+        //启动APP
+        if(this.source==='WX'){     //微信中
+          totFailD('请在浏览器中打开')
+        }else if(this.client){      //非微信中
+          if(this.client==='ios'){
+            window.location.href = 'ibuick://'
+          }else {
+            let [hasApp, t, t1] = [true , 1000, Date.now()]
+            setTimeout(function () {  //没有安装APP则跳转至应用宝下载，延时时间设置为2秒
+              if(!hasApp) window.location.href = "http://sj.qq.com/myapp/detail.htm?apkName=com.buick"
+            } , 2000)
+            window.location.href = 'scheme://host/iBuick'
+            setTimeout(function () {
+              //t的时间就是出发APP启动的时间，若APP启动了，再次返回页面时t2这行代码执行，hasApp即为true。反之若APP没有启动即为false
+              const t2 = Date.now()
+              hasApp = !(!t1 || t2 - t1 < t + 150)
+            } , t);
+          }
+        }
+      },*/
       handleTask(url){
         if(url){
           location.href = url

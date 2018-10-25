@@ -21,6 +21,6 @@ router.beforeEach((to, from, next) => {
       }
     }
   }else {
-    totFailD('请在微信或京东金融中打开')
+    totFailD('请在手机中打开')
   }
 });

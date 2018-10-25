@@ -16,10 +16,10 @@ export function getUrlKey(name){
    const ua = navigator.userAgent.toLowerCase()
    const isWeixin = ua.includes('micromessenger')
    const ux = isWeixin?'WX':'JD'
-   const isAndroid = ua.indexOf('android') > -1 || ua.indexOf('linux') > -1
+   const isAndroid = ua.includes('android') || ua.includes('adr')
    const isiOS = !!ua.match(/\(i[^;]+;( u;)? cpu.+mac os x/)
    const client = isAndroid?'android':isiOS?'ios':false
-   // store.dispatch('changeClient', client)
+   store.dispatch('changeClient', client)
    store.dispatch('changeSource',ux)
    return ux!==''&&client
  }
