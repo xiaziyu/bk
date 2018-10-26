@@ -43,7 +43,7 @@
 <script>
   import Vue from 'vue'
   import loadingMap from '@/assets/icon/hearts.svg'
-  import errorMap from '@/assets/icon/rect.svg'
+  import errorMap from '@/assets/icon/noimages.svg'
   import bitmap from '@/assets/point/bitmap.png'
   import { mapGetters } from 'vuex'
   //import { mapActions } from 'vuex'
