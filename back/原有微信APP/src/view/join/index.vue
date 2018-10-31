@@ -35,7 +35,7 @@
   import { mapActions } from 'vuex'
   import { validateEmail, valIph } from '@/utils/validate'
   import { totText, totFailD, totSuc } from '@/utils/notice'
-  import { getOpenid } from '@/api/login'
+  import { getPin } from '@/api/login'
   import { subJoin } from '@/api/join'
 
   export default {
@@ -51,7 +51,7 @@
     computed: {
       ...mapGetters([
         'token',
-        'openid',
+        'pin',
         'source'
       ])
     },
@@ -73,13 +73,13 @@
     },
     methods: {
       ...mapActions([
-        'changeOpenid'
+        'changePin'
       ]),
       getDate() {
         const data ={token: this.token, source: this.source}
-        getOpenid(data).then(res => {
+        getPin(data).then(res => {
           this.isLoading = false
-          this.changeOpenid(res.data.openid)
+          this.changePin(res.data.pin)
           this.type = res.data.status//res.data.status为1 是已报名，2是未报名
           if(this.type==='1'){
             this.userForm = {
@@ -115,8 +115,8 @@
       },
       joinSub(){
         if(this.check()){
-          if(this.openid!==''){
-            const data = { openid: this.openid, ...this.userForm }
+          if(this.pin!==''){
+            const data = { pin: this.pin, ...this.userForm }
             subJoin(data).then(res => {
               this.$toast.clear()
               totSuc('报名成功')

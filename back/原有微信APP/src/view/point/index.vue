@@ -67,7 +67,7 @@
       ...mapGetters([
         'source',
         'token',
-        'openid',
+        'pin',
         'client'
       ])
     },
@@ -93,7 +93,7 @@
     methods: {
       getUsers(){
         allLoad()
-        getPoint({openid: this.openid}).then(res => {
+        getPoint({pin: this.pin}).then(res => {
           this.getDate()
           this.userInfo = {
             icon: res.data.icon||'',
@@ -108,10 +108,10 @@
         })
       },
       getDate() {
-        getGift({openid: this.openid}).then(res => {
+        getGift({pin: this.pin}).then(res => {
           this.giftList = res.data.giftList
           this.moreUrl = res.data.more
-          getTask({openid: this.openid}).then(respones => {
+          getTask({pin: this.pin}).then(respones => {
             this.taskList = respones.data
             this.isLoading = false
             this.$toast.clear()
@@ -126,7 +126,7 @@
         if(!this.btnIsShow){
           if(this.userInfo.jd_point&&Number(this.userInfo.jd_point)>0){
             allLoad()
-            changePoint({openid: this.openid}).then(res => {
+            changePoint({pin: this.pin}).then(res => {
               this.$toast.clear()
               totSuc('兑换成功')
               this.getUsers()

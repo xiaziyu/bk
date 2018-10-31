@@ -1,0 +1,55 @@
+@import "../../style/include/variables";
+@import "../../style/include/mixin";
+body{background: #fff;}
+//用户信息
+.page_top{height: 3.9rem; position: relative;overflow: hidden; background: linear-gradient(0deg, #6172F5 0%, #2BA9FC 100%);
+  &:before{content: "";display: block;width: 2.99rem;height: 3.54rem; position: absolute;right: 0; top:-0.68rem;
+    background: url("../../assets/point/bg_top.png");background-size: 100%;}
+  .avatarImg{float: left;width: 1.4rem;height: 1.4rem;border-radius: 50%;overflow: hidden; margin: .5rem .5rem 0 .32rem;text-align: center;
+    background: url("../../assets/point/avatar.png") #eee no-repeat;background-size: 100%;
+    img{ max-width: 100%;max-height: 100%;.middle();
+      &[lazy=error]{display: none;}
+    }
+    &:after{content: "";.middle();height: 100%;width: 0;}
+  }
+  .avatar_info{float: left;padding-top: .47rem;
+    p{font-size: .26rem;color: #fff;line-height: .47rem;}
+    .name{font-size: .3rem;height: .52rem; line-height: .52rem;font-weight: 500;}
+  }
+  //加入
+  .join_btn{vertical-align: middle;line-height: .26rem;font-size: .23rem; border-radius: .5rem;border: 1px solid #fff;background: #fff;color: @blue;}
+  //积分互通
+  .inter_btn{position: absolute;top:.99rem; right: .3rem; min-width: 1.48rem;padding: 0 0.23rem; height: .42rem;line-height: .4rem; font-size: .26rem;color: #fff;border-radius: .21rem;
+    background: transparent;border: 1px solid #fff;}
+}
+.title{text-align: center;color: #333;font-size: .42rem;letter-spacing: -.02rem;line-height: .59rem;}
+//热门礼品
+.giftBox{position: relative;z-index: 1; width: 6.86rem;height: 3.8rem;background: #fff;margin: -1.5rem .32rem 0 .32rem;border-radius: .16rem;.box-size();
+  .box-shadow(0 0 .5rem rgba(153,153,153,.5));padding: .4rem .33rem;
+  .title{position: relative;}
+  .gift_more{font-size: .24rem;color: #999;position: absolute;top:0;right: 0;}
+  .gift_list{overflow: hidden;margin-top: .4rem;
+    .gift_img{float: left;margin-right: .1rem;border-radius: .07rem;overflow: hidden;background: #eee;width: 2rem;height: 2rem;
+      &:last-child{margin: 0;}
+      img{max-width: 100%;max-height: 100%;.middle();}
+      &:after{content: "";.middle();height: 100%;width: 0;}
+    }
+  }
+}
+//任务介绍
+.taskBox{padding-top: 0.61rem;
+  .title{padding-bottom: .42rem;border-bottom: 1px solid #eee;}
+  .task_list{
+  }
+  .task_li{padding: .26rem 0 0 1.52rem;position: relative;height: 1.4rem;.box-size();
+    .task_icon{width: .88rem;height: .88rem;background: #eee;border-radius: 50%;overflow: hidden;position: absolute;top:.26rem;left: .32rem;
+      img{max-width: 100%;max-height: 100%;.middle();}
+      &:after{content: "";.middle();height: 100%;width: 0;}
+    }
+    .task_item{ border-bottom: 1px solid #eee;padding-bottom: .32rem;}
+    p{max-width: 75%;.text-over();}
+    .name{color: #444;font-size: .32rem;line-height: .45rem;padding-bottom: .04rem;}
+    .text{color: #999;font-size: .26rem;line-height: .37rem;}
+    .task_detail{font-size: .26rem;line-height: .37rem;color: #999;position: absolute;top:.58rem;right: .32rem;}
+  }
+}

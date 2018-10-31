@@ -14,6 +14,20 @@ export function removeToken() {
   return Cookies.remove(TokenKey)
 }
 
+/*const PinKey = 'jdxyst-pin'
+
+export function getPin() {
+  return Cookies.get(PinKey)
+}
+
+export function setPin(pin) {
+  return Cookies.set(PinKey, pin)
+}
+
+export function removePin() {
+  return Cookies.remove(PinKey)
+}*/
+
 const OpenidKey = 'jdxyst-openid'
 
 export function getOpenid() {

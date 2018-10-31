@@ -1,0 +1,12 @@
+body .page{
+  //单元格
+  .van-cell{padding: 0.3rem 0;line-height: 0.4rem;font-size: 0.28rem;color: @text;}
+  [class*=van-hairline]::after{border-color: @itemLine;}
+  .van-cell:not(:last-child)::after{left: 0;}//border-bottom-width:0;border-top-width: 1px;
+  .van-hairline--top-bottom::after{border-bottom-width: 0;}
+  //输入框
+  .van-field .van-cell__title{color: @textLabel;}
+  //按钮
+  .van-button{border: 0;}
+  .van-button--disabled{color: #fff;background: #ccc;}
+}
