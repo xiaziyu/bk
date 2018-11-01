@@ -66,9 +66,9 @@
     computed: {
       ...mapGetters([
         'source',
-        'token',
-        'openid',
-        'client'
+        'codes',
+        'states',
+        'openid'
       ])
     },
     data() {

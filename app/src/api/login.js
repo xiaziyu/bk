@@ -19,6 +19,9 @@ export function getIsvToken(data) {
     data
   })
 }
+/*
+ * 京东新文档
+*/
 //京东新文档获取token及openid
 export function getOpenid(data) {
   return request({

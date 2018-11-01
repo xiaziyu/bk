@@ -17,7 +17,7 @@ const setting = {
     jdOpenid_url: {//后京东新文档开放跳转地址
       back_url: redirectUrl,
       jd_url: 'https://jauth.jd.com/entrance?response_type=code&state=jdbk&redirect_uri='+redirectUrl,
-      appid: 'jd3e93af69a51fb88b',
+      appid: 'jd90d6f15ab29ba884',
       appsecret: '84f8615d3aeb446d9ea1724e8039cd64'
     }
   },

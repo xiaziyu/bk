@@ -1,4 +1,4 @@
-import { getToken, setToken, removeToken, getOpenid, setOpenid, removeOpenid } from '@/utils/auth'
+import { getCode, setCode, removeCode, getOpenid, setOpenid, removeOpenid } from '@/utils/auth'
 
 const setting = {
   state: {
@@ -6,13 +6,20 @@ const setting = {
     api_url:'?r=',
     client: '',
     source: '',
-    token: getToken()||'',
+    codes: getCode() || '',
+    states: 'jdbk',
     openid: getOpenid()||''
   },
   mutations: {
-    SET_TOKEN: (state, token) => {
-      state.token = token
+    SET_CODES: (state, codes) => {
+      state.codes = codes
     },
+    SET_STATES: (state, states) => {
+      state.states = states
+    },
+    /*SET_TOKEN: (state, token) => {
+      state.token = token
+    },*/
     SET_SOURCE: (state, source) => {
       state.source = source
     },
@@ -24,13 +31,21 @@ const setting = {
     }
   },
   actions:{
-    changeToken({ commit }, data) {
+    changeCode({ commit }, data){
+      return new Promise((resolve) => {
+        commit('SET_CODES', data.code)
+        commit('SET_STATES', data.state)
+        setCode(data.code)
+        resolve()
+      })
+    },
+    /*changeToken({ commit }, data) {
       return new Promise((resolve) => {
         commit('SET_TOKEN', data.token)
         setToken(data.token)
         resolve()
       })
-    },
+    },*/
     changeOpenid({ commit}, openid){
       return new Promise((resolve) => {
         commit('SET_OPENID', openid)
@@ -52,9 +67,9 @@ const setting = {
     // 前端 登出
     FedLogOut({ commit }) {
       return new Promise(resolve => {
-        commit('SET_TOKEN', '')
+        commit('SET_CODES', '')
         commit('SET_OPENID', '')
-        removeToken()
+        removeCode()
         removeOpenid()
         resolve()
       })

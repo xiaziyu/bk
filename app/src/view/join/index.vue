@@ -50,7 +50,9 @@
     },
     computed: {
       ...mapGetters([
-        'token',
+        'source',
+        'codes',
+        'states',
         'openid',
         'source'
       ])
@@ -76,7 +78,7 @@
         'changeOpenid'
       ]),
       getDate() {
-        const data ={token: this.token, source: this.source}
+        const data ={code: this.codes, state: this.states}
         getOpenid(data).then(res => {
           this.isLoading = false
           this.changeOpenid(res.data.openid)

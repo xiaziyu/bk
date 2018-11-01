@@ -10,7 +10,7 @@ router.beforeEach((to, from, next) => {
     if(whiteList.includes(to.name)){
       next()
     }else {
-      if(store.getters.token&&store.getters.openid){
+      if(store.getters.openid){
         const title = to.meta && to.meta.title
         if (title) {
           document.title = title
