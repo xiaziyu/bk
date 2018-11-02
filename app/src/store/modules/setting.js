@@ -49,6 +49,7 @@ const setting = {
     changeOpenid({ commit}, openid){
       return new Promise((resolve) => {
         commit('SET_OPENID', openid)
+        setOpenid(openid)
         resolve()
       })
     },

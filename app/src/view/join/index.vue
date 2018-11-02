@@ -35,8 +35,7 @@
   import { mapActions } from 'vuex'
   import { validateEmail, valIph } from '@/utils/validate'
   import { totText, totFailD, totSuc } from '@/utils/notice'
-  import { getOpenid } from '@/api/login'
-  import { subJoin } from '@/api/join'
+  import { getInfo, subJoin } from '@/api/join'
 
   export default {
     name: 'join',
@@ -78,8 +77,8 @@
         'changeOpenid'
       ]),
       getDate() {
-        const data ={code: this.codes, state: this.states}
-        getOpenid(data).then(res => {
+        const data ={openid: this.openid}
+        getInfo(data).then(res => {
           this.isLoading = false
           this.changeOpenid(res.data.openid)
           this.type = res.data.status//res.data.status为1 是已报名，2是未报名
