@@ -57,7 +57,7 @@
       },
       getDate(data){
         getOpenid(data).then(res => {
-          alert(JSON.stringify(res))
+          //alert(JSON.stringify(res))
           this.changeOpenid(res.data.openid)
           if(res.data.status==='1'){
             this.$router.push({name:'point'})
