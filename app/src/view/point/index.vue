@@ -123,7 +123,7 @@
         })
       },
       interSub(){
-        if(!this.btnIsShow){
+        if(!this.btnIsShow){//已注册别客汇
           if(this.userInfo.jd_point&&Number(this.userInfo.jd_point)>0){
             allLoad()
             changePoint({openid: this.openid}).then(res => {
@@ -146,10 +146,11 @@
         }
       },
       handleGift(url){
-        if(this.btnIsShow){
+        if(!this.btnIsShow){//已注册别客汇
           location.href = url
         }else {
-          location.href = 'http://m.buick.com.cn/app.html'
+          //location.href = 'http://m.buick.com.cn/app.html'
+          location.href = this.sign_url
         }
       },
       /*startApp(){
