@@ -10,7 +10,7 @@
       <div class="avatar_info">
         <p class="name" v-text="userInfo.user_name"></p>
         <p>当前积分：{{userInfo.jd_point}}</p>
-        <p>别客汇积分：<button v-if="btnIsShow" @click="handleJoin()" class="join_btn">加入</button><span v-else>{{userInfo.buick_point}}</span></p>
+        <p>别客汇积分：<button v-if="is_sign!=='Y'" @click="handleJoin()" class="join_btn">加入</button><span v-else>{{userInfo.buick_point}}</span></p>
       </div>
       <button class="inter_btn" @click="interSub()">积分互通</button>
     </div>
@@ -49,7 +49,7 @@
   //import { mapActions } from 'vuex'
   import { Lazyload, PullRefresh } from 'vant'
   import { totFailD, totText, totSuc, allLoad } from '@/utils/notice'
-  import { getPoint, changePoint, getGift, getTask } from '@/api/point'
+  import { getPoint, changePoint, getGift, getTask, getHotGiftUrl } from '@/api/point'
 
   Vue.use(Lazyload, {
     preLoad: 1,
@@ -81,34 +81,35 @@
           jd_point:'0'
         },
         sing_url: '',
-        btnIsShow: false,
+        is_sign: 'N',
         moreUrl: '',
         giftList:[],
         taskList: []
       }
     },
-    created() {
+    mounted() {
       this.getUsers()
     },
     methods: {
       getUsers(){
         allLoad()
         getPoint({openid: this.openid}).then(res => {
-          this.getDate()
           this.userInfo = {
             icon: res.data.icon||'',
             user_name: res.data.user_name||'--',
             buick_point: res.data.buick_point||'0',
             jd_point:res.data.jd_point||'0'
           }
-          this.btnIsShow = !res.data.status
+          this.is_sign = res.data.status?'Y':'N'
           this.sign_url = res.data.sign_url || ''
+          this.getDate()
         }).catch(()=> {
           this.isLoading = false
         })
       },
       getDate() {
-        getGift({openid: this.openid}).then(res => {
+        const data = {openid: this.openid, is_sign: this.is_sign}
+        getGift(data).then(res => {
           this.giftList = res.data.giftList
           this.moreUrl = res.data.more
           getTask({openid: this.openid}).then(respones => {
@@ -123,7 +124,7 @@
         })
       },
       interSub(){
-        if(!this.btnIsShow){//已注册别客汇
+        if(this.is_sign==='Y'){//已注册别客汇
           if(this.userInfo.jd_point&&Number(this.userInfo.jd_point)>0){
             allLoad()
             changePoint({openid: this.openid}).then(res => {
@@ -146,13 +147,29 @@
         }
       },
       handleGift(url){
-        if(!this.btnIsShow){//已注册别客汇
+        if(this.is_sign==='Y'){
+          allLoad()
+          const data = {openid: this.openid, is_sign: this.is_sign}
+          getHotGiftUrl(data).then(res => {
+            location.href = url+res.data
+            this.$toast.clear()
+          }).catch(()=> {
+          })
+        }else {
+          location.href = this.sign_url
+        }
+        /*if(!this.is_sign==='Y'){//已注册别客汇
           location.href = url
         }else {
           //location.href = 'http://m.buick.com.cn/app.html'
           location.href = this.sign_url
-        }
+        }*/
       },
+      handleTask(url){
+        if(url){
+          location.href = url
+        }
+      }
       /*startApp(){
         //启动APP
         if(this.source==='WX'){     //微信中
@@ -174,11 +191,6 @@
           }
         }
       },*/
-      handleTask(url){
-        if(url){
-          location.href = url
-        }
-      }
     }
   }
 

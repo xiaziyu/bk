@@ -32,3 +32,11 @@ export function getTask(data) {
     data
   })
 }
+// 热门礼品实时链接
+export function getHotGiftUrl(data) {
+  return request({
+    url: store.getters.api_url+'App/Main/getHotGiftUrl',
+    method: 'post',
+    data
+  })
+}
