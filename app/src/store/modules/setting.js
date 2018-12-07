@@ -34,7 +34,6 @@ const setting = {
     changeCode({ commit }, data){
       return new Promise((resolve) => {
         commit('SET_CODES', data.code)
-        commit('SET_STATES', data.state)
         setCode(data.code)
         resolve()
       })

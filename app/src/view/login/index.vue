@@ -35,7 +35,7 @@
         'FedLogOut'
       ]),
       jdGetCode(){
-        const [code, state] = [this.$route.query['code']||'', this.$route.query['state']||'']
+        const [code, state] = [ this.$route.query['code']||'', 'jdbk' ]
         const data = { code, state }
         getOpenid(data).then(res => {
           //alert(JSON.stringify(res))
