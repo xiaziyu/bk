@@ -2,6 +2,7 @@ import axios from 'axios'
 import { totFail, totFailD } from '@/utils/notice'
 import { router } from '@/router/index';
 import qs from 'qs'
+import store from '@/store'
 
 // 创建axios实例
 const service = axios.create({
@@ -35,6 +36,7 @@ service.interceptors.response.use(
       return response.data
     }else {
       if(Number(res['ret']) === 555){
+        store.dispatch('FedLogOut')
         router.push({ name: 'login' })
       }
       const text = res['msg']?res['msg']:'返回异常，请稍候重试'

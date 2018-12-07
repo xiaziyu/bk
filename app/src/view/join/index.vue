@@ -80,7 +80,6 @@
         const data ={openid: this.openid}
         getInfo(data).then(res => {
           this.isLoading = false
-          this.changeOpenid(res.data.openid)
           this.type = res.data.status//res.data.status为1 是已报名，2是未报名
           if(this.type==='1'){
             this.userForm = {
