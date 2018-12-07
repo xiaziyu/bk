@@ -47,6 +47,7 @@
               location.href = url
             })
           }
+        }).catch(error => {
         })
       },
       getInfo(){
