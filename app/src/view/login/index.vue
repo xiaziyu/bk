@@ -31,7 +31,8 @@
       ...mapActions([
         'changeCode',
         'changeOpenid',
-        'jdOpenIdUrl'
+        'jdOpenIdUrl',
+        'FedLogOut'
       ]),
       jdGetCode(){
         const [code, state] = [this.$route.query['code']||'', this.$route.query['state']||'']
@@ -48,6 +49,7 @@
             })
           }
         }).catch(error => {
+
         })
       },
       getInfo(){
@@ -60,6 +62,7 @@
             this.$router.push({name:'join'})
           }
         }).catch(error => {
+          this.FedLogOut()
           totFailD(error)
         })
       }
