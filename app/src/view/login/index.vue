@@ -8,8 +8,7 @@
   import { mapGetters } from 'vuex'
   import { mapActions } from 'vuex'
   import { totFailD } from '@/utils/notice'
-  import { getOpenid } from '@/api/login'
-  import { getInfo } from '@/api/join'
+  import { getOpenid, getUserInfo } from '@/api/login'
 
   export default{
     name: 'login',
@@ -54,7 +53,7 @@
       },
       getInfo(){
         const data ={openid: this.openid}
-        getInfo(data).then(res => {
+        getUserInfo(data).then(res => {
           //res.data.status为1 是已报名，2是未报名
           if(res.data.status==='1'){
             this.$router.push({name:'point'})

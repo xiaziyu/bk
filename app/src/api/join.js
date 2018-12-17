@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 import store from '@/store';
 
-// 用户报名
+// 用户报名状态信息
 export function getInfo(data) {
   return request({
     url: store.getters.api_url+'App/Register/getRegisterInfo',
