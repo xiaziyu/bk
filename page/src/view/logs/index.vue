@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
     <div class="container">
+      <!--<div class="container" v-track-event="{category:'download', action:'click',opt_label: '详细描述'}">-->
       <listTitle :title="'操作历史信息'">
       </listTitle>
       <el-table ref="multipleTable" :data="tableData" empty-text="抱歉，暂无相关数据" border style="width: 100%" size="medium">
