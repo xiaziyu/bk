@@ -2,6 +2,7 @@ import { router } from '@/router/index';
 import store from './store'
 import { IsWap } from '@/utils/index'
 import { totFailD } from '@/utils/notice'
+import ba from 'vue-ba'
 
 const whiteList = ['login']
 
@@ -16,6 +17,7 @@ router.beforeEach((to, from, next) => {
           document.title = title
         }
         next()
+        ba.trackPageview(to.fullPath)
       }else {
         next({ name: 'login' })
       }

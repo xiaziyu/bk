@@ -5,8 +5,11 @@ import { router } from './router/index';
 import './style/index.less' // global css
 import store from './store'
 import '@/permission'
+import { Loading, Toast } from 'vant'
 
-import { Loading, Toast } from 'vant';
+import ba from 'vue-ba'
+Vue.use(ba, "f067456684575eb639018bcafb7d78fd");
+Vue.use(ba, { siteId: "f067456684575eb639018bcafb7d78fd" })
 
 Vue.use(Loading)
 Vue.use(Toast)

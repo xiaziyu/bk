@@ -10,17 +10,21 @@
       <div class="avatar_info">
         <p class="name" v-text="userInfo.user_name"></p>
         <p>当前积分：{{userInfo.jd_point}}</p>
-        <p>别客汇积分：<button v-if="is_sign!=='Y'" @click="handleJoin()" class="join_btn">加入</button><span v-else>{{userInfo.buick_point}}</span></p>
+        <p>
+          别客汇积分：
+          <button v-if="is_sign!=='Y'" @click="handleJoin()" v-track-event="{category:'button_join', action:'click',opt_label: '按钮注册'}" class="join_btn">加入</button>
+          <span v-else>{{userInfo.buick_point}}</span>
+        </p>
       </div>
-      <button class="inter_btn" @click="interSub()">积分互通</button>
+      <button class="inter_btn" v-track-event="{category:'exchange', action:'click',opt_label: '积分兑换'}" @click="interSub()">积分互通</button>
     </div>
     <div class="giftBox">
       <h1 class="title">别克会员商城
-        <a @click="handleGift(moreUrl)" class="icon icon-arrow-right gift_more">更多</a>
+        <a @click="handleGift(moreUrl, 'more')" class="icon icon-arrow-right gift_more">更多</a>
       </h1>
       <van-swipe class="banner_list" :autoplay="3000" indicator-color="#ffffff">
         <van-swipe-item v-for="(item, i) in giftList" :key="i">
-          <img @click="handleGift(item.url)" v-lazy="item.img_url" />
+          <img @click="handleGift(item.url, 'list')" v-lazy="item.img_url" />
         </van-swipe-item>
       </van-swipe>
       <!--<ul class="gift_list">
@@ -55,6 +59,7 @@
   import { Lazyload, PullRefresh, Swipe, SwipeItem } from 'vant'
   import { totFailD, totText, totSuc, allLoad } from '@/utils/notice'
   import { getPoint, changePoint, getGift, getTask, getHotGiftUrl } from '@/api/point'
+  import ba from 'vue-ba'
 
   Vue.use(Lazyload, {
     preLoad: 1,
@@ -154,8 +159,13 @@
           location.href = this.sign_url
         }
       },
-      handleGift(url){
+      handleGift(url, type){
         if(this.is_sign==='Y'){
+          if(type==='more'){
+            ba.trackEvent('more_mall', 'click', '更多链接商城')
+          }else {
+            ba.trackEvent('banner_mall', 'click', '通栏图片商城')
+          }
           allLoad()
           const data = {openid: this.openid, is_sign: this.is_sign}
           getHotGiftUrl(data).then(res => {
@@ -164,6 +174,11 @@
           }).catch(()=> {
           })
         }else {
+          if(type==='more'){
+            ba.trackEvent('more_join', 'click', '更多链接注册')
+          }else {
+            ba.trackEvent('banner_join', 'click', '通栏图片注册')
+          }
           location.href = this.sign_url
         }
         /*if(!this.is_sign==='Y'){//已注册别客汇

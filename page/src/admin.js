@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import 'normalize.css/normalize.css'// A modern alternative to CSS reset
-// import ba from 'vue-ba'
-// Vue.use(ba, "f067456684575eb639018bcafb7d78fd");
-// Vue.use(ba, { siteId: "f067456684575eb639018bcafb7d78fd" })
+
 
 import {Pagination, Dialog, Menu, Submenu, MenuItem, MenuItemGroup, Input, Checkbox, CheckboxButton, CheckboxGroup,
   Button, ButtonGroup, Table, TableColumn, Tooltip, Form, FormItem, Icon, Row, Col, Loading, MessageBox, Message, Notification} from 'element-ui'
