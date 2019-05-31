@@ -24,7 +24,15 @@ export function getUserInfo(data) {
   })
 }
 
-
+//定时刷新jdtoken
+export function apiJdToken(data) {
+  return request({
+    url: store.getters.api_url+'App/main/refreshToken',
+    name: 'jdtoken',
+    method: 'post',
+    data
+  })
+}
 /*
  * 京东已弃用文档
  */

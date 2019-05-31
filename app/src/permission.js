@@ -16,6 +16,7 @@ router.beforeEach((to, from, next) => {
         if (title) {
           document.title = title
         }
+        store.dispatch('getJdToken')
         next()
         ba.trackPageview(to.fullPath)
       }else {

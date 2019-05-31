@@ -1,4 +1,5 @@
 import { getCode, setCode, removeCode, getOpenid, setOpenid, removeOpenid } from '@/utils/auth'
+import { apiJdToken } from '@/api/login'
 
 const setting = {
   state: {
@@ -8,7 +9,8 @@ const setting = {
     source: '',
     codes: getCode() || '',
     states: 'jdbk',
-    openid: getOpenid()||''
+    openid: getOpenid()||'',
+    interval: ''
   },
   mutations: {
     SET_CODES: (state, codes) => {
@@ -61,6 +63,16 @@ const setting = {
     changeClient({ commit}, client){
       return new Promise((resolve) => {
         commit('SET_CLIENT', client)
+        resolve()
+      })
+    },
+    getJdToken({commit, state}){
+      return new Promise((resolve) => {
+        if(!state.interval){
+          state.interval = setInterval(() => {
+            apiJdToken({openid: state.openid}).then().catch()
+          }, 1000*60*28)
+        }
         resolve()
       })
     },

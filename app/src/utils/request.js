@@ -28,26 +28,33 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(
   response => {
-    /**
-     * res为非200是抛错
-     */
-    const res = response.data
-    if (res['ret']&&Number(res['ret']) === 200){
+    if(response.config.name==='jdtoken'){
+      /**
+       * 定时脚本
+       */
       return response.data
     }else {
-      if(Number(res['ret']) === 555){
-        store.dispatch('FedLogOut')
-        router.push({ name: 'login' })
-      }
-      const text = res['msg']?res['msg']:'返回异常，请稍候重试'
-      console.log(response.config.url+'返回异常')
-      if(response.config.isfull){
-        totFailD(text)
+      /**
+       * res为非200是抛错
+       */
+      const res = response.data
+      if (res['ret']&&Number(res['ret']) === 200){
+        return response.data
       }else {
-        totFail(text)
+        if(Number(res['ret']) === 555){
+          store.dispatch('FedLogOut')
+          router.push({ name: 'login' })
+        }
+        const text = res['msg']?res['msg']:'返回异常，请稍候重试'
+        console.log(response.config.url+'返回异常')
+        if(response.config.isfull){
+          totFailD(text)
+        }else {
+          totFail(text)
+        }
+        //alert(response.config.url+JSON.stringify(res))
+        return Promise.reject(res)
       }
-      //alert(response.config.url+JSON.stringify(res))
-      return Promise.reject(res)
     }
   },
   error => {
