@@ -68,6 +68,7 @@ const setting = {
     },
     getJdToken({commit, state}){
       return new Promise((resolve) => {
+        apiJdToken({openid: state.openid}).then().catch()
         if(!state.interval){
           state.interval = setInterval(() => {
             apiJdToken({openid: state.openid}).then().catch()
